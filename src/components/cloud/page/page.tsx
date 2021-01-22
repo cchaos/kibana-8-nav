@@ -39,7 +39,7 @@ export type CloudPageProps = CommonProps & {
   pageSideBarProps?: EuiPageSideBarProps;
   bottomBar?: ReactNode;
   restrictWidth?: boolean;
-  dashboardStyle?: boolean;
+  hasPageContent?: boolean;
 };
 
 export const CloudPage: FunctionComponent<CloudPageProps> = ({
@@ -55,7 +55,7 @@ export const CloudPage: FunctionComponent<CloudPageProps> = ({
   pageSideBarProps,
   bottomBar,
   restrictWidth = true,
-  dashboardStyle = false,
+  hasPageContent = true,
   className,
 }) => {
   const setHeaderItems = useContext(CloudChromeContext);
@@ -85,37 +85,32 @@ export const CloudPage: FunctionComponent<CloudPageProps> = ({
     </EuiSticky>
   );
 
-  return dashboardStyle ? (
-    <>
-      <EuiPage restrictWidth={false} paddingSize="none">
-        <EuiPageBody panelled={false}>
-          <EuiPageContentBody restrictWidth={false} {...pageContentBodyProps}>
-            {children}
-          </EuiPageContentBody>
-        </EuiPageBody>
-      </EuiPage>
-      {optionalBottomBar}
-    </>
+  const pageContent = hasPageContent ? (
+    <EuiPageContent
+      borderRadius={'none'}
+      hasShadow={false}
+      {...pageContentProps}>
+      <EuiPageContentBody
+        restrictWidth={restrictWidth}
+        {...pageContentBodyProps}>
+        {children}
+      </EuiPageContentBody>
+    </EuiPageContent>
   ) : (
+    children
+  );
+
+  return (
     <>
       <EuiPage
         grow={true}
-        {...pageProps}
         paddingSize="none"
+        {...pageProps}
         className={className}>
         {optionalSideBar}
         <EuiPageBody panelled={Boolean(optionalSideBar)} {...pageBodyProps}>
           {optionalPageHeader}
-          <EuiPageContent
-            borderRadius={'none'}
-            hasShadow={false}
-            {...pageContentProps}>
-            <EuiPageContentBody
-              restrictWidth={restrictWidth}
-              {...pageContentBodyProps}>
-              {children}
-            </EuiPageContentBody>
-          </EuiPageContent>
+          {pageContent}
         </EuiPageBody>
       </EuiPage>
       {optionalBottomBar}

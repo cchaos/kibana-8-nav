@@ -17,7 +17,7 @@ export default () => {
     <CloudPage
       pageTitle="Cloud"
       breadcrumbs={breadcrumbs}
-      dashboardStyle={true}>
+      hasPageContent={false}>
       <div className="eui-textCenter">
         <Link className="pageScreenshot__TBD" to="cloud/deployments">
           <img

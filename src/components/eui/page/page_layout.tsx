@@ -46,8 +46,8 @@ export const EuiPageLayout: FunctionComponent<EuiPageLayoutProps> = ({
     'euiPageLayout',
     {
       'euiPageLayout--fullHeight': fullHeight,
+      [`euiPageLayout--${numberOfFixedHeaders}FixedHeaders`]: numberOfFixedHeaders,
     },
-    `euiPageLayout--${numberOfFixedHeaders}FixedHeaders`,
     className
   );
 
