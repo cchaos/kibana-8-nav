@@ -53,7 +53,7 @@ export const ConsoleDeploymentMenu: React.FunctionComponent<ConsoleDeploymentMen
     setOptions(options);
     setMenuIsOpen(false);
     setSelectedDeployment(find(options, { checked: 'on' }));
-    navigate('home');
+    navigate('/');
   };
 
   const createMenuId = htmlIdGenerator('ConsoleDeploymentMenu');

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import { EuiBreadcrumb } from '@elastic/eui';
-import { CloudPage } from '../components/cloud/page';
+import { CloudPage } from '../../components/cloud/page';
 
 // @ts-ignore
-import cloudImg from '../images/Cloud - Home.png';
+import cloudImg from '../../images/Cloud - Home.png';
 
 const breadcrumbs: EuiBreadcrumb[] = [
   {

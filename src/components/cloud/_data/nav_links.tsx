@@ -38,7 +38,7 @@ export const CloudNavLinks: ChromeNavGroupProps[] = [
     links: [
       {
         label: 'Docs',
-        href: 'Documentation',
+        url: 'documentation',
       },
       {
         label: 'Blogs',
