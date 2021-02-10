@@ -39,16 +39,15 @@ export const CloudDeploymentsNav: any = ({
             // @ts-ignore
             navigate(data.url);
           }
-        : () => {
-            return null;
-          },
+        : undefined,
     };
   };
 
   const sideNav = [
     createItem('Features', {
       items: [
-        createItem('API Keys'),
+        createItem('All features'),
+        createItem('API keys'),
         createItem('Traffic filters'),
         createItem('Extensions'),
       ],
@@ -60,7 +59,7 @@ export const CloudDeploymentsNav: any = ({
       createItem('Squirrel', {
         className: 'euiSideBar--dynamic',
         items: [
-          createItem('Overview', { url: 'cloud/deployment' }),
+          createItem('Overview', { url: '/cloud/deployment' }),
           createItem('Logs & metrics'),
           createItem('Activity'),
           createItem('Settings'),
@@ -73,7 +72,7 @@ export const CloudDeploymentsNav: any = ({
     <>
       <EuiTitle size="xs">
         <h2>
-          <EuiLink color="text" onClick={() => navigate('cloud/deployments')}>
+          <EuiLink color="text" onClick={() => navigate('/cloud/deployments')}>
             <EuiIcon size="l" type="package" /> &ensp;{' '}
             <strong>Deployments</strong>
           </EuiLink>

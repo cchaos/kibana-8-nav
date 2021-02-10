@@ -1,4 +1,5 @@
-$euiPageDefaultMaxWidth: map-get($euiBreakpoints, 'xl') + ($euiSizeL * 2);
+$euiPageDefaultMaxWidth: map-get($euiBreakpoints, 'xl');
+$euiPageSidebarWidth: $euiSize * 12;
 
 .euiPage--grow {
   flex-grow: 1;
@@ -8,20 +9,32 @@ $euiPageDefaultMaxWidth: map-get($euiBreakpoints, 'xl') + ($euiSizeL * 2);
 .euiPageBody--restrictWidth-default,
 .euiPage--restrictWidth-default {
   // TODO: Increase default max-width and use a variable
-  max-width: $euiPageDefaultMaxWidth;
+  max-width: $euiPageDefaultMaxWidth + ($euiSizeL * 2);
 }
 
 // TODO: Allow more page components to accept `restrictWidth`
 .euiPageHeader--restrictWidth-default {
   width: 100%;
-  max-width: $euiPageDefaultMaxWidth;
+  max-width: $euiPageDefaultMaxWidth + ($euiSizeL * 2);
   margin-left: auto;
   margin-right: auto;
+
+  .euiPageContent & {
+    max-width:  $euiPageDefaultMaxWidth;
+
+    @include euiBreakpoint('xs', 's') {
+      max-width: 100%;
+    }
+  }
+}
+
+.euiPageSideBar + .euiPageContent {
+  max-width: calc(100% - #{$euiPageSidebarWidth});
 }
 
 .euiPageContentBody--restrictWidth-default {
   width: 100%;
-  max-width:  map-get($euiBreakpoints, 'xl');
+  max-width:  $euiPageDefaultMaxWidth;
   margin-left: auto;
   margin-right: auto;
 }

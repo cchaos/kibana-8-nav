@@ -20,7 +20,7 @@ import {
 
 import { CloudChromeContext } from '../layout';
 import { EuiPage, EuiPageProps } from '../../eui/page/page_shim';
-import { EuiPageBody, EuiPageBodyProps } from '../../eui/page/page_body_shim';
+import { EuiPageBodyProps } from '../../eui/page/page_body_shim';
 import {
   EuiPageContentBody,
   EuiPageContentBodyProps,
@@ -49,7 +49,6 @@ export const CloudPage: FunctionComponent<CloudPageProps> = ({
   pageTitle,
   pageHeader,
   pageProps,
-  pageBodyProps,
   pageContentProps,
   pageContentBodyProps,
   pageSideBarProps,
@@ -86,10 +85,8 @@ export const CloudPage: FunctionComponent<CloudPageProps> = ({
   );
 
   const pageContent = hasPageContent ? (
-    <EuiPageContent
-      borderRadius={'none'}
-      hasShadow={false}
-      {...pageContentProps}>
+    <EuiPageContent borderRadius={'none'} {...pageContentProps}>
+      {optionalPageHeader}
       <EuiPageContentBody
         restrictWidth={restrictWidth}
         {...pageContentBodyProps}>
@@ -108,10 +105,7 @@ export const CloudPage: FunctionComponent<CloudPageProps> = ({
         {...pageProps}
         className={className}>
         {optionalSideBar}
-        <EuiPageBody panelled={Boolean(optionalSideBar)} {...pageBodyProps}>
-          {optionalPageHeader}
-          {pageContent}
-        </EuiPageBody>
+        {pageContent}
       </EuiPage>
       {optionalBottomBar}
     </>

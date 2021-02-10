@@ -1,6 +1,11 @@
 import React, { ReactNode } from 'react';
 
-import { EuiBreadcrumb, EuiHeader } from '@elastic/eui';
+import {
+  EuiBreadcrumb,
+  EuiBreadcrumbs,
+  EuiButtonIcon,
+  EuiHeader,
+} from '@elastic/eui';
 
 import { KibanaHeaderSpacesMenu } from './spaces_menu';
 
@@ -30,9 +35,18 @@ export const KibanaHeader: React.FunctionComponent<KibanaHeaderProps> = ({
                 }
               />,
               <KibanaHeaderSpacesMenu />,
+              breadcrumbs && (
+                <EuiBreadcrumbs
+                  // TODO: FIX TRUNCATION OF LONG BREADCRUMB SINGLE ITEM
+                  // @ts-ignore FIX: Style should be allowed on breadcrumbs
+                  style={{ marginLeft: 12, marginRight: 8, overflow: 'hidden' }}
+                  breadcrumbs={breadcrumbs}
+                />
+              ),
+              // TODO: Make this dynamic
+              <EuiButtonIcon iconType="checkInCircleFilled" color="subdued" />,
             ],
             borders: 'none',
-            breadcrumbs,
           },
           {
             borders: 'none',

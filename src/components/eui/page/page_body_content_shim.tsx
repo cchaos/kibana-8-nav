@@ -36,7 +36,7 @@ export const EuiPageContentBody: FunctionComponent<EuiPageContentBodyProps> = ({
     newStyle = { ...style, maxWidth: value };
   }
 
-  const classes = classNames('euiPageBody', widthClassname, className);
+  const classes = classNames('euiPageContentBody', widthClassname, className);
 
   return (
     <EuiPageContentBodyOld

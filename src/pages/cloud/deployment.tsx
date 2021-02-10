@@ -11,7 +11,7 @@ const breadcrumbs: EuiBreadcrumb[] = [
   {
     text: 'Deployments',
     onClick: () => {
-      navigate('cloud/deployments');
+      navigate('/cloud/deployments');
     },
   },
   {

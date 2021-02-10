@@ -97,7 +97,7 @@ export const ConsoleDeploymentMenu: React.FunctionComponent<ConsoleDeploymentMen
             <EuiPopoverFooter paddingSize="s">
               <EuiButton
                 size="s"
-                onClick={() => navigate('cloud/deployment')}
+                onClick={() => navigate('/cloud/deployment')}
                 fullWidth
                 isDisabled={selectedDeployment?.label !== 'Squirrel'}>
                 Manage deployment

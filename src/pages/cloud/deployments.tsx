@@ -36,6 +36,7 @@ export default () => (
     }}
     sideNavItem="Overview"
     breadcrumbs={breadcrumbs}>
+    <EuiSpacer />
     <EuiFlexGroup>
       <EuiFlexItem grow={3}>
         <EuiFieldSearch fullWidth placeholder="Search transactions..." />

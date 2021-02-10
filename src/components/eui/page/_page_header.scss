@@ -1,6 +1,11 @@
 .euiPageHeader {
   padding-top: $euiSizeL;
   padding-bottom: $euiSizeL;
+
+  .euiPageContent & {
+    padding-top: 0;
+    border-bottom: $euiBorderThin;
+  }
 }
 
 .euiPageHeader--top {
