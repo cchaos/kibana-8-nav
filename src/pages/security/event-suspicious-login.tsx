@@ -14,6 +14,7 @@ import { SecurityPage } from '../../components/kibana/security/page';
 
 // @ts-ignore
 import tracesImg from '../../images/Traces - Explorer.png';
+import { KibanaPageHeader } from '../../components/kibana/chrome/page/page_header';
 
 const breadcrumbs: EuiBreadcrumb[] = [
   {
@@ -25,25 +26,26 @@ const breadcrumbs: EuiBreadcrumb[] = [
   },
 ];
 
+const pageHeader = {
+  pageTitle: 'Suspcious login',
+  description: 'This timeline is to investigate a suspicious login.',
+  actionButtons: [
+    <EuiButton fill iconType="arrowDown" iconSide="right">
+      Add to case
+    </EuiButton>,
+    <EuiButton iconType="starEmpty">Add to favorites</EuiButton>,
+  ],
+};
+
 export default () => (
   <SecurityPage
+    template="custom"
     globals={true}
-    panelled={false}
     pageTitle="Suspicious login"
     navItem="Events"
     breadcrumbs={breadcrumbs}
-    restrictWidth={false}
-    pageContentProps={{ paddingSize: 'none' }}
-    pageHeader={{
-      pageTitle: 'Suspcious login',
-      description: 'This timeline is to investigate a suspicious login.',
-      actionButtons: [
-        <EuiButton fill iconType="arrowDown" iconSide="right">
-          Add to case
-        </EuiButton>,
-        <EuiButton iconType="starEmpty">Add to favorites</EuiButton>,
-      ],
-    }}>
+    pageContentProps={{ paddingSize: 'none' }}>
+    <KibanaPageHeader {...pageHeader} />
     <EuiPanel hasShadow={false} color="transparent">
       <EuiFlexGroup responsive={false} wrap>
         <EuiFlexItem>

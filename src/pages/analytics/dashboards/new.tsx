@@ -8,10 +8,12 @@ import {
   EuiHeaderLinks,
 } from '@elastic/eui';
 // @ts-ignore
-import logsDashboardImg from '../../../images/[Logs] Web Traffic.png';
 import { KibanaChromeContext } from '../../../components/kibana/layout';
-import { EuiPageContentBody } from '../../../components/eui/page/page_body_content_shim';
 import { KibanaPage } from '../../../components/kibana/chrome/page/page';
+import {
+  KibanaPageHeaderProps,
+  KibanaPageHeaderPrimaryAddButton,
+} from '../../../components/kibana/chrome/page/page_header';
 
 const breadcrumbs: EuiBreadcrumb[] = [
   {
@@ -27,7 +29,7 @@ const breadcrumbs: EuiBreadcrumb[] = [
     },
   },
   {
-    text: '[Logs] Web Traffic',
+    text: 'New',
   },
 ];
 
@@ -40,14 +42,26 @@ const headerLinks: ReactNode = (
     <EuiHeaderLink>Clone</EuiHeaderLink>
 
     <EuiButton
-      iconType="pencil"
+      iconType="save"
       style={{ minWidth: 80 }}
       size="s"
       color="secondary">
-      Edit
+      Save
     </EuiButton>
   </EuiHeaderLinks>
 );
+
+const pageHeader: KibanaPageHeaderProps = {
+  pageTitle: 'Add your first panel',
+  iconType: 'dashboardApp',
+  description:
+    'Select from a list of already created visualizations or start a new one.',
+  actionButtons: [
+    <KibanaPageHeaderPrimaryAddButton>
+      Add panel
+    </KibanaPageHeaderPrimaryAddButton>,
+  ],
+};
 
 export default () => {
   const setKibanaContext = useContext(KibanaChromeContext);
@@ -56,22 +70,9 @@ export default () => {
     setKibanaContext.setChrome({
       breadcrumbs,
       headerLinks,
-      pageTitle: '[Logs] Web Traffic | Dashboards',
+      pageTitle: 'New | Dashboards',
     });
   }, [breadcrumbs, headerLinks]);
 
-  return (
-    <KibanaPage restrictWidth={false} template="custom" globals={true}>
-      <EuiPageContentBody restrictWidth={false}>
-        <div className="pageScreenshot__TBD">
-          <img
-            className="pageScreenshot pageScreenshot--fullWidth"
-            alt="[Logs] Web Traffic dashboard"
-            width={1175}
-            src={logsDashboardImg}
-          />
-        </div>
-      </EuiPageContentBody>
-    </KibanaPage>
-  );
+  return <KibanaPage template="empty" globals={true} pageHeader={pageHeader} />;
 };

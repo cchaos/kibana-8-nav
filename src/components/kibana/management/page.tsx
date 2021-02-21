@@ -46,7 +46,6 @@ export const ManagementPage: FunctionComponent<ManagementPage> = ({
 
   return (
     <KibanaPage
-      restrictWidth={false}
       solutionNav={<KibanaManagementNav currentItem={sideNavItem} />}
       {...rest}>
       {children}

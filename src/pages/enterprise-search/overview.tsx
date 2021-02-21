@@ -36,7 +36,9 @@ export default () => {
 
   return (
     <KibanaPage
+      template="custom"
       restrictWidth={true}
+      paddingSize="l"
       pageHeader={{
         pageTitle: 'Enterprise Search',
         iconType: 'logoWorkplaceSearch',

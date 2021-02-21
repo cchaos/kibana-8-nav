@@ -1,28 +1,25 @@
 import React from 'react';
 
-import { EuiEmptyPrompt, EuiHorizontalRule } from '@elastic/eui';
+import { EuiHorizontalRule } from '@elastic/eui';
 
 import { ManagementPage } from '../../components/kibana/management/page';
 
 export default () => (
   <>
     <ManagementPage
+      template="empty"
       pageTitle="Management Overview"
       sideNavItem="Overview"
-      centered={true}
-      panelled={true}>
-      <EuiEmptyPrompt
-        iconType="managementApp"
-        // TODO: Allow changing icon color to inherit
-        // @ts-ignore
-        iconColor={null}
-        title={
+      pageHeader={{
+        iconType: 'managementApp',
+        // iconColor: null,
+        pageTitle: (
           <h1>
             Welcome to <br />
             Stack Management 7.9.1
           </h1>
-        }
-        body={
+        ),
+        description: (
           <>
             <p>
               Manage your indices, index patterns, saved objects, Kibana
@@ -31,8 +28,8 @@ export default () => (
             <EuiHorizontalRule size="quarter" />
             <p>A complete list of apps is in the menu on the left.</p>
           </>
-        }
-      />
-    </ManagementPage>
+        ),
+      }}
+    />
   </>
 );

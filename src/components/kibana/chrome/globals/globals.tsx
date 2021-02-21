@@ -9,7 +9,6 @@ import {
   EuiButtonEmpty,
 } from '@elastic/eui';
 import { EuiSuperDatePicker } from '../../../eui';
-import { EuiPageHeader } from '../../../eui/page/page_header_shim';
 
 type Props = CommonProps & HTMLAttributes<HTMLDivElement>;
 
@@ -17,7 +16,7 @@ export function KibanaGlobals({ className, ...rest }: Props): ReactElement {
   const classes = classNames('kbnGlobals', className);
 
   return (
-    <EuiPageHeader className={classes}>
+    <div className={classes}>
       <EuiFlexGroup gutterSize="s" responsive={false} {...rest}>
         <EuiFlexItem grow={false}>
           <EuiButton size="s" iconType="filter" minWidth={0} />
@@ -41,6 +40,6 @@ export function KibanaGlobals({ className, ...rest }: Props): ReactElement {
           <EuiSuperDatePicker />
         </EuiFlexItem>
       </EuiFlexGroup>
-    </EuiPageHeader>
+    </div>
   );
 }

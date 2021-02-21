@@ -6,6 +6,16 @@
     padding-top: 0;
     border-bottom: $euiBorderThin;
   }
+
+  .euiPage:not([class*='euiPage--padding']) & {
+    padding-left: $euiSizeL;
+    padding-right: $euiSizeL;
+  }
+
+  .euiPageContent[class*='euiPanel--padding'] & {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .euiPageHeader--top {

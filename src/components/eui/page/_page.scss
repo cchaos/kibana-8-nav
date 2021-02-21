@@ -1,9 +1,12 @@
 $euiPageDefaultMaxWidth: map-get($euiBreakpoints, 'xl');
 $euiPageSidebarWidth: $euiSize * 12;
 
+.euiPage {
+  min-height: 100%;
+}
+
 .euiPage--grow {
   flex-grow: 1;
-  // overflow-x: hidden; // Questionable
 }
 
 .euiPageBody--restrictWidth-default,
@@ -28,8 +31,8 @@ $euiPageSidebarWidth: $euiSize * 12;
   }
 }
 
-.euiPageSideBar + .euiPageContent {
-  max-width: calc(100% - #{$euiPageSidebarWidth});
+.euiPageContent {
+  min-width: 0;
 }
 
 .euiPageContentBody--restrictWidth-default {
@@ -39,78 +42,10 @@ $euiPageSidebarWidth: $euiSize * 12;
   margin-right: auto;
 }
 
-.euiPageBody--panelled {
-  @include euiBottomShadowSmall;
-  border-radius: $euiBorderRadius;
-  border: $euiBorderThin;
-  background-color: $euiColorEmptyShade;
-}
-
-
-// There's some funky reversing of background colors to
-// ensure any restricted widths center and color properly
-
-// .euiPageSideBar {
-//   @include euiYScroll;
-//   height: auto;
-//   padding: $euiSizeL;
-//   // border-right: $euiBorderThin !important; // Overrides resizable panel
-//   margin-right: 0;
-//   background: $euiPageBackgroundColor;
-//   // min-width: 260px;  No need for this anymore as the min width comes from the resizable panel
-//   max-height: calc(100vh - #{$euiHeaderHeightCompensation * 2});
-//   flex-grow: 1;
-//   position: sticky;
-//   top: #{$euiHeaderHeightCompensation * 2};
-// }
-
-// .euiPageContent:not(.euiPageContent--verticalCenter):not(.euiPageContent--horizontalCenter) {
-//   box-shadow: 0 0 0 1px $euiBorderColor;
-//   border-radius: 0 !important; // sass-lint:disable-line no-important
-// }
-
-// // First level of side nav
-// .euiSideNavItem--root > .euiSideNavItemButton .euiSideNavItemButton__label {
-//   @include euiFontSizeS;
-// }
-
-// .euiSideNavItem--root + .euiSideNavItem--root {
-//   margin-top: $euiSize;
-// }
-
-// .euiSideNavItemButton:disabled {
-//   pointer-events: none;
-// }
-
-// .euiSideNavItem--trunk .euiSideNavItemButton:disabled .euiSideNavItemButton__label {
-//   color: makeHighContrastColor($euiColorLightShade, $euiColorLightShade, 2);
-// }
-
-// .euiSideNavItem--root > .euiSideNavItemButton-isSelected .euiSideNavItemButton__label {
-//   color: $euiColorPrimaryText;
-// }
-
-// // DOCUMENTATION STYLE
-
-// .euiPageContentBody .euiPageSideBar {
-//   box-shadow: none;
-//   border: none;
+// .euiPageBody--panelled {
+//   @include euiBottomShadowSmall;
 //   border-radius: $euiBorderRadius;
-//   max-height: calc(100vh - #{($euiHeaderHeightCompensation * 2) + ($euiSize * 2)});
-//   overflow: hidden;
+//   border: $euiBorderThin;
+//   background-color: $euiColorEmptyShade;
 // }
 
-// .euiCollapsibleNav--isDocked {
-//   box-shadow: none !important;
-//   background: transparent;
-//   max-width: 260px;
-// }
-
-// .euiBody--collapsibleNavIsDocked {
-//   padding-left: 260px !important;
-// }
-
-// .euiSideNavItemButton__label + svg {
-//   // Hiding the arrow icon for now
-//   display: none;
-// }

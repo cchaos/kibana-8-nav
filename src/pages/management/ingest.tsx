@@ -66,10 +66,10 @@ export default () => (
       rightSideContent: [
         <img
           className="pageScreenshot pageScreenshot--responsive"
-          style={{ marginBottom: -32 }}
+          // style={{ marginBottom: -32 }}
           alt=""
           aria-hidden={true}
-          width={320}
+          width={240}
           src={illustrationImg}
         />,
       ],

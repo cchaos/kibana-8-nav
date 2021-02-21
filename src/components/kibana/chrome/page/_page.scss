@@ -16,3 +16,7 @@
 //   top: $euiHeaderHeightCompensation * 2;
 //   position: sticky;
 // }
+
+.kbnGlobals + .kbnPageHeader {
+  padding-top: $euiSizeL;
+}

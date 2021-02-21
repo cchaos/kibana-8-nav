@@ -61,7 +61,6 @@ export default () => {
 
   return (
     <KibanaPage
-      globals={true}
       restrictWidth={false}
       pageContentProps={{ paddingSize: 'none' }}
       pageHeader={{

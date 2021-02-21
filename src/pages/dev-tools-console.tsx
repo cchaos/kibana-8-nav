@@ -27,11 +27,6 @@ export default () => {
   return (
     <KibanaPage
       style={{ overflow: 'hidden' }}
-      pageBodyProps={{
-        style: {
-          overflow: 'hidden',
-        },
-      }}
       pageContentProps={{
         style: {
           overflow: 'auto',
