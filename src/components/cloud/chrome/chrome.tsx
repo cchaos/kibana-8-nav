@@ -19,7 +19,7 @@ export const CloudChrome: React.FunctionComponent<CloudChromeProps> = ({
   breadcrumbs,
 }) => {
   return (
-    <EuiPageLayout>
+    <EuiPageLayout numberOfStickyHeaders={2}>
       <Helmet>
         <title>{pageTitle} | Cloud 8 Prototype</title>
       </Helmet>

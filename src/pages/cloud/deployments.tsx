@@ -27,16 +27,14 @@ export default () => (
     pageTitle="Deployments"
     pageHeader={{
       pageTitle: 'All deployments',
-      rightSideContent: [
+      rightSideItems: [
         <EuiButton fill iconType="plusInCircleFilled">
           Create deployment
         </EuiButton>,
       ],
-      restrictWidth: true,
     }}
     sideNavItem="Overview"
     breadcrumbs={breadcrumbs}>
-    <EuiSpacer />
     <EuiFlexGroup>
       <EuiFlexItem grow={3}>
         <EuiFieldSearch fullWidth placeholder="Search transactions..." />

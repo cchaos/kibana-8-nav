@@ -13,6 +13,11 @@ export type EuiPageLayoutProps = CommonProps &
      */
     numberOfFixedHeaders?: typeof NUMBER_OF_FIXED_HEADERS[number];
     /**
+     * Helper that adjusts the layout based on the number of sticky headers.
+     * Adds body classes.
+     */
+    numberOfStickyHeaders?: typeof NUMBER_OF_FIXED_HEADERS[number];
+    /**
      * Stretches the page content but doesn't extend past the window height.
      * This means you must add scroll ability somewhere in your content.
      * Be sure to apply `overflow: hidden` to all the containers until you reach the one you desire to scroll.
@@ -24,6 +29,7 @@ export const EuiPageLayout: FunctionComponent<EuiPageLayoutProps> = ({
   className,
   children,
   numberOfFixedHeaders,
+  numberOfStickyHeaders,
   fullHeight,
   ...rest
 }) => {
@@ -40,7 +46,20 @@ export const EuiPageLayout: FunctionComponent<EuiPageLayoutProps> = ({
         );
       };
     }
-  }, [numberOfFixedHeaders]);
+
+    if (numberOfStickyHeaders) {
+      document.body.classList.add(
+        `euiBody--${numberOfStickyHeaders}StickyHeaders`
+      );
+
+      return () => {
+        // Remove the class
+        document.body.classList.remove(
+          `euiBody--${numberOfStickyHeaders}StickyHeaders`
+        );
+      };
+    }
+  }, [numberOfFixedHeaders, numberOfStickyHeaders]);
 
   const classes = classNames(
     'euiPageLayout',

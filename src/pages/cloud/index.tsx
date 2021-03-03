@@ -17,17 +17,17 @@ export default () => {
     <CloudPage
       pageTitle="Cloud"
       breadcrumbs={breadcrumbs}
-      hasPageContent={false}>
-      <div className="eui-textCenter">
-        <Link className="pageScreenshot__TBD" to="cloud/deployments">
-          <img
-            className="pageScreenshot pageScreenshot--fullWidth"
-            alt="Cloud overview"
-            width={1638}
-            src={cloudImg}
-          />
-        </Link>
-      </div>
+      template="empty"
+      restrictWidth={false}
+      paddingSize="none">
+      <Link className="pageScreenshot__TBD" to="cloud/deployments">
+        <img
+          className="pageScreenshot pageScreenshot--fullWidth"
+          alt="Cloud overview"
+          width={1638}
+          src={cloudImg}
+        />
+      </Link>
     </CloudPage>
   );
 };

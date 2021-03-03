@@ -16,12 +16,20 @@ $euiNumberOfPossibleFixedHeaders: 1, 2, 3;
 
   .euiBody--#{$numberHeaders}FixedHeaders {
     padding-top: $headerHeight;
+  }
 
+  .euiBody--#{$numberHeaders}FixedHeaders,
+  .euiBody--#{$numberHeaders}StickyHeaders {
     // When the EuiHeader is fixed, we need to account for it in the position of the flyout
     .euiFlyout,
     .euiCollapsibleNav {
       top: $headerHeight;
       height: calc(100vh - #{$headerHeight});
+    }
+
+    .euiPageSideBar--sticky {
+      top: $headerHeight;
+      max-height: calc(100vh - #{$headerHeight});
     }
   }
 

@@ -1,11 +1,17 @@
 import React from 'react';
+import { navigate } from 'gatsby';
 
-import { EuiBreadcrumb, EuiButton, EuiTitle, EuiLink } from '@elastic/eui';
+import {
+  EuiBreadcrumb,
+  EuiButton,
+  EuiButtonEmpty,
+  EuiFlexGroup,
+  EuiFlexItem,
+} from '@elastic/eui';
 
 import { DeploymentsPage } from '../../components/cloud/deployments/page';
 // @ts-ignore
 import squirrelImg from '../../images/Cloud Deployment - Squirrel.png';
-import { navigate } from 'gatsby';
 
 const breadcrumbs: EuiBreadcrumb[] = [
   {
@@ -25,24 +31,22 @@ export default () => (
     showSingleDeployment={true}
     sideNavItem="Overview"
     breadcrumbs={breadcrumbs}
-    restrictWidth={false}
     pageHeader={{
-      leftSideContent: (
-        <>
-          <EuiTitle size="xxs">
-            <h1>
-              <EuiLink>
-                <strong>Squirrel</strong>
-              </EuiLink>
-            </h1>
-          </EuiTitle>
-          {/* @ts-ignore NEED TO ALLOW THIS IN EUI */}
-          <EuiTitle size="l" style={{ marginTop: 0 }}>
-            <h2>Deployment overview</h2>
-          </EuiTitle>
-        </>
+      pageTitle: (
+        <EuiFlexGroup
+          alignItems="flexStart"
+          direction="column"
+          component="span"
+          gutterSize="none">
+          <EuiFlexItem component="span">
+            <EuiButtonEmpty flush="both" size="s">
+              <strong>Squirrel</strong>
+            </EuiButtonEmpty>
+          </EuiFlexItem>
+          <EuiFlexItem component="span">{'Deployment overview'}</EuiFlexItem>
+        </EuiFlexGroup>
       ),
-      rightSideContent: [
+      rightSideItems: [
         <EuiButton
           iconType="popout"
           iconSide="right"
@@ -50,29 +54,9 @@ export default () => (
           Open deployment
         </EuiButton>,
       ],
+      style: { marginBottom: 0 },
     }}
     bottomBar={<EuiButton fill>Save</EuiButton>}>
-    {/* <EuiPageContent
-      className="euiPageContent--restrictWidth"
-      style={{ flexGrow: 0 }}>
-      <EuiPageContentBody>
-        <EuiFlexGroup>
-          <EuiFlexItem>
-            <EuiStat title="0" description="Agents" titleColor="subdued" />
-          </EuiFlexItem>
-          <EuiFlexItem>
-            <EuiStat title="0" description="Online" titleColor="subdued" />
-          </EuiFlexItem>
-          <EuiFlexItem>
-            <EuiStat title="0" description="Offline" titleColor="subdued" />
-          </EuiFlexItem>
-          <EuiFlexItem>
-            <EuiStat title="0" description="Error" titleColor="subdued" />
-          </EuiFlexItem>
-        </EuiFlexGroup>
-      </EuiPageContentBody>
-    </EuiPageContent>*/}
-
     <div className="pageScreenshot__TBD">
       <img
         className="pageScreenshot pageScreenshot--fullWidth"
