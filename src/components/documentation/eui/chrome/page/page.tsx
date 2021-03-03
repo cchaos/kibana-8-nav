@@ -6,16 +6,13 @@ import {
   EuiPageContent,
   EuiPageContentProps,
   EuiPageSideBar,
-} from '@elastic/eui';
-import { EuiPage, EuiPageProps } from '../../../../eui/page/page_shim';
-import {
+  EuiPage,
   EuiPageBody,
   EuiPageBodyProps,
-} from '../../../../eui/page/page_body_shim';
-import {
   EuiPageContentBody,
   EuiPageContentBodyProps,
-} from '../../../../eui/page/page_body_content_shim';
+  EuiPageProps,
+} from '@elastic/eui';
 import { EuiSticky } from '../../../../eui';
 
 import ThemeContext from '../../../../../themes/ThemeContext';

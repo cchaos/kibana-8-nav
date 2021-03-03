@@ -1,8 +1,5 @@
+import { EuiPageHeader, EuiPageHeaderProps } from '@elastic/eui';
 import React, { FunctionComponent } from 'react';
-import {
-  EuiPageHeaderProps,
-  EuiPageHeader,
-} from '../../../../eui/page/page_header_shim';
 
 export type EuiDocsPageHeaderProps = EuiPageHeaderProps;
 

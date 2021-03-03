@@ -1,0 +1,56 @@
+.euiPageBody {
+  z-index: 1; // Stays above shadow of side nav
+}
+
+.euiBody--collapsibleNavIsDocked {
+  transition: none;
+}
+
+.euiCollapsibleNav--isDocked {
+  animation: none;
+}
+
+.euiCard--primaryTitle .euiCard__title {
+  color: $euiLinkColor;
+}
+
+//** Helpers to add
+
+.eui-fullHeight {
+  height: 100%;
+}
+
+.eui-overflowHidden {
+  overflow: hidden;
+}
+
+.euiCollapsibleNavGroup__children:empty {
+  display: none;
+}
+
+.euiSideNavItem--root {
+  padding-top: $euiSizeS;
+  padding-bottom: $euiSizeS;
+
+  & + & {
+    margin-top: $euiSizeL;
+  }
+}
+
+
+.euiListGroupItem--primary .euiListGroupItem__text:not(:disabled),
+.euiListGroupItem--primary .euiListGroupItem__button:not(:disabled) {
+  color: $euiColorPrimary !important;
+}
+
+.euiListGroupItem--primary.euiListGroupItem-isActive,
+.euiListGroupItem--primary.euiListGroupItem-isClickable:hover {
+  background-color: transparentize($euiColorPrimary, .9) !important;
+}
+
+.euiResizableButton:not(:hover):not(:focus) {
+  &::before,
+  &::after {
+    opacity: .25;
+  }
+}

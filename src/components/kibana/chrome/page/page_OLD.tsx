@@ -7,13 +7,12 @@ import {
   EuiPageContent,
   EuiPageContentProps,
   EuiPageSideBar,
-} from '@elastic/eui';
-import { EuiPage, EuiPageProps } from '../../../eui/page/page_shim';
-import { EuiPageBodyProps } from '../../../eui/page/page_body_shim';
-import {
+  EuiPageProps,
+  EuiPage,
+  EuiPageBodyProps,
   EuiPageContentBody,
   EuiPageContentBodyProps,
-} from '../../../eui/page/page_body_content_shim';
+} from '@elastic/eui';
 
 import ThemeContext from '../../../../themes/ThemeContext';
 
