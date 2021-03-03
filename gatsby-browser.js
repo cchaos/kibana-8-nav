@@ -8,7 +8,6 @@ export const wrapRootElement = ({ element }) => (
 const Layout = require('./src/components/kibana/layout').default;
 const DocsLayout = require('./src/components/documentation/layout').default;
 const CloudLayout = require('./src/components/cloud/layout').default;
-const EuiDocsLayout = require('./src/components/documentation/eui/layout').default;
 
 export const wrapPageElement = ({ element, props }) => {
   // props provide same data to Layout as Page element will get
@@ -18,8 +17,6 @@ export const wrapPageElement = ({ element, props }) => {
     return <DocsLayout>{element}</DocsLayout>;
   } else if (props.path.includes('cloud')) {
     return <CloudLayout>{element}</CloudLayout>;
-  } else if (props.path.includes('eui')) {
-    return <EuiDocsLayout>{element}</EuiDocsLayout>;
   }
 
   return <Layout {...props}>{element}</Layout>;

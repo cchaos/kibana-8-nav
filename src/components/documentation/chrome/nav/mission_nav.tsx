@@ -19,11 +19,6 @@ const deploymentsList: EuiListGroupProps['listItems'] = [
   //   size: 's',
   // },
   {
-    label: 'Elastic UI',
-    iconType: 'logoElastic',
-    onClick: () => navigate('documentation/eui'),
-  },
-  {
     label: 'Product Design',
     iconType: 'glasses',
     onClick: () => navigate('documentation'),
