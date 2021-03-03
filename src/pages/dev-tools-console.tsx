@@ -26,22 +26,14 @@ export default () => {
 
   return (
     <KibanaPage
-      style={{ overflow: 'hidden' }}
-      pageContentProps={{
-        style: {
-          overflow: 'auto',
-        },
-      }}
       restrictWidth={false}
       pageHeader={{
-        leftSideContent: (
-          <EuiTabs display="condensed">
-            <EuiTab isSelected>Console</EuiTab>
-            <EuiTab>Search profiler</EuiTab>
-            <EuiTab>Grok debugger</EuiTab>
-            <EuiTab>Painless lab</EuiTab>
-          </EuiTabs>
-        ),
+        tabs: [
+          { label: 'Console', isSelected: true },
+          { label: 'Search profiler' },
+          { label: 'Grok debugger' },
+          { label: 'Painless lab' },
+        ],
       }}
       bottomBar={
         <>

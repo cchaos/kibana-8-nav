@@ -46,24 +46,14 @@ export default () => {
       headerLinks={headerLinks}
       breadcrumbs={breadcrumbs}
       pageHeader={{
-        alignItems: 'top',
-        leftSideContent: (
-          <>
-            <EuiTabs display="condensed">
-              <EuiTab isSelected>Agents</EuiTab>
-              <EuiTab>Policies</EuiTab>
-              <EuiTab>Enrollment tokens</EuiTab>
-              <EuiTab>Data streams</EuiTab>
-            </EuiTabs>
-            <EuiSpacer />
-            <EuiText color="subdued" size="s">
-              <p>
-                Manage and deploy policy updates to a group of agents of any
-                size.
-              </p>
-            </EuiText>
-          </>
-        ),
+        tabs: [
+          { label: 'Agents', isSelected: true },
+          { label: 'Policies' },
+          { label: 'Enrollment tokens' },
+          { label: 'Data streams' },
+        ],
+        description:
+          'Manage and deploy policy updates to a group of agents of any size.',
         rightSideItems: [
           <EuiButton fill iconType="plusInCircle">
             Add agent

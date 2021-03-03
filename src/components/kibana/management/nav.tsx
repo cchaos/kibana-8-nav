@@ -18,7 +18,6 @@ export const KibanaManagementNav: any = ({
 
   const createItem = (name: string, data = {}) => {
     return {
-      ...data,
       id: name,
       name,
       // @ts-ignore
@@ -31,15 +30,14 @@ export const KibanaManagementNav: any = ({
             // @ts-ignore
             navigate(data.url);
           }
-        : () => {
-            return null;
-          },
+        : undefined,
+      ...data,
     };
   };
 
   const sideNav = [
-    createItem('Overview', { url: 'management/stack' }),
     createItem('Console', {
+      disabled: false,
       items: [
         createItem('Index Patterns'),
         createItem('Saved Objects'),
@@ -51,6 +49,7 @@ export const KibanaManagementNav: any = ({
       ],
     }),
     createItem('Security', {
+      disabled: false,
       items: [
         createItem('Users'),
         createItem('Roles'),
@@ -59,6 +58,7 @@ export const KibanaManagementNav: any = ({
       ],
     }),
     createItem('Fleet', {
+      disabled: false,
       items: [
         createItem('Agents', { url: 'management/agents' }),
         createItem('Integrations', { url: 'management/ingest' }),
@@ -67,6 +67,7 @@ export const KibanaManagementNav: any = ({
       ],
     }),
     createItem('Elasticsearch', {
+      disabled: false,
       items: [
         createItem('Index Management'),
         createItem('Index Lifecycle Policies'),

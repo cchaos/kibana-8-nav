@@ -62,8 +62,8 @@ export default () => (
     pageHeader={{
       pageTitle: 'Integrations',
       description: 'Browse integrations for popular apps and services.',
-      alignItems: 'middle',
-      rightSideContent: [
+      alignItems: 'center',
+      rightSideItems: [
         <img
           className="pageScreenshot pageScreenshot--responsive"
           // style={{ marginBottom: -32 }}
