@@ -1,11 +1,13 @@
 import React, { FunctionComponent, ReactNode } from 'react';
 import classNames from 'classnames';
 
-import { EuiButton, EuiButtonProps, ExclusiveUnion } from '@elastic/eui';
 import {
-  EuiPageHeaderProps,
+  EuiButton,
+  EuiButtonProps,
   EuiPageHeader,
-} from '../../../eui/page/page_header_shim';
+  EuiPageHeaderProps,
+  ExclusiveUnion,
+} from '@elastic/eui';
 
 import { EuiSuperDatePicker } from '../../../eui/super_date_picker';
 import {
@@ -28,7 +30,7 @@ export const KibanaPageHeaderPrimaryAddButton: FunctionComponent<
 
 export const KibanaPageHeader: FunctionComponent<KibanaPageHeaderProps> = ({
   className,
-  rightSideContent,
+  rightSideItems,
   time,
   actionButtons,
   ...rest
@@ -37,20 +39,20 @@ export const KibanaPageHeader: FunctionComponent<KibanaPageHeaderProps> = ({
 
   let extraSettings: Partial<EuiPageHeaderProps> = {};
 
-  if (!rightSideContent && time) {
-    rightSideContent = [<EuiSuperDatePicker />];
+  if (!rightSideItems && time) {
+    rightSideItems = [<EuiSuperDatePicker />];
     extraSettings = {
-      responsiveOrder: 'rightFirst',
-      rightSideResponsive: true,
+      responsive: 'reverse',
+      rightSideGroupProps: { responsive: true },
     };
-  } else if (!rightSideContent && actionButtons) {
-    rightSideContent = actionButtons;
+  } else if (!rightSideItems && actionButtons) {
+    rightSideItems = actionButtons;
   }
 
   return (
     <EuiPageHeader
       {...rest}
-      rightSideContent={rightSideContent}
+      rightSideItems={rightSideItems}
       {...extraSettings}
       className={classes}
     />

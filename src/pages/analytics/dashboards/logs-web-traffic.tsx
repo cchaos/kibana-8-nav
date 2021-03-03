@@ -10,7 +10,6 @@ import {
 // @ts-ignore
 import logsDashboardImg from '../../../images/[Logs] Web Traffic.png';
 import { KibanaChromeContext } from '../../../components/kibana/layout';
-import { EuiPageContentBody } from '../../../components/eui/page/page_body_content_shim';
 import { KibanaPage } from '../../../components/kibana/chrome/page/page';
 
 const breadcrumbs: EuiBreadcrumb[] = [
@@ -61,17 +60,15 @@ export default () => {
   }, [breadcrumbs, headerLinks]);
 
   return (
-    <KibanaPage restrictWidth={false} template="custom" globals={true}>
-      <EuiPageContentBody restrictWidth={false}>
-        <div className="pageScreenshot__TBD">
-          <img
-            className="pageScreenshot pageScreenshot--fullWidth"
-            alt="[Logs] Web Traffic dashboard"
-            width={1175}
-            src={logsDashboardImg}
-          />
-        </div>
-      </EuiPageContentBody>
+    <KibanaPage restrictWidth={false} template="empty" globals={true}>
+      <div className="pageScreenshot__TBD">
+        <img
+          className="pageScreenshot pageScreenshot--fullWidth"
+          alt="[Logs] Web Traffic dashboard"
+          width={1175}
+          src={logsDashboardImg}
+        />
+      </div>
     </KibanaPage>
   );
 };

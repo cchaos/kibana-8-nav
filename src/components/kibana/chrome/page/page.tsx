@@ -1,43 +1,39 @@
 import React, { FunctionComponent, ReactNode } from 'react';
 
 import {
+  EuiEmptyPrompt,
+  EuiPage,
+  EuiPageBody,
   EuiPageContent,
-  EuiPageContentProps,
+  EuiPageContentBody,
   EuiPageSideBar,
-  EuiSpacer,
+  EuiPageTemplate,
+  EuiPageTemplateProps,
 } from '@elastic/eui';
-import { EuiPage, EuiPageProps } from '../../../eui/page/page_shim';
-import { EuiPageBody } from '../../../eui/page/page_body_shim';
-import { EuiPageContentBody } from '../../../eui/page/page_body_content_shim';
 
 import { KibanaPageHeader, KibanaPageHeaderProps } from './page_header';
-import { KibanaPageCustom } from './page_custom';
 import { KibanaPageEmpty } from './page_empty';
 import { KibanaPageDefault } from './page_default';
 import { KibanaGlobals } from '../globals';
 
-export type KibanaPageProps = EuiPageProps & {
-  template?: 'default' | 'empty' | 'custom';
-  restrictWidth?: boolean;
+export type KibanaPageProps = EuiPageTemplateProps & {
   pageHeader?: KibanaPageHeaderProps;
   globals?: boolean;
-  pageContentProps?: EuiPageContentProps;
   solutionNav?: ReactNode;
-
   resizableSidebar?: boolean;
   bottomBar?: ReactNode;
 };
 
 export const KibanaPage: FunctionComponent<KibanaPageProps> = ({
-  template = 'default',
-  restrictWidth = true,
+  template,
   pageHeader,
   globals = false,
-  pageContentProps,
   solutionNav,
   children,
-
   bottomBar,
+
+  pageContentProps,
+  restrictWidth = true,
   ...rest
 }) => {
   const optionalSideBar = solutionNav ? (
@@ -46,20 +42,23 @@ export const KibanaPage: FunctionComponent<KibanaPageProps> = ({
 
   const optionalGlobals = globals && <KibanaGlobals />;
 
+  if (template === 'empty') {
+    return (
+      <EuiPageTemplate
+        template="empty"
+        restrictWidth={optionalGlobals ? false : restrictWidth}
+        paddingSize={optionalGlobals ? 'none' : 'l'}
+        pageSideBar={solutionNav}
+        {...rest}>
+        {optionalGlobals}
+        {children}
+      </EuiPageTemplate>
+    );
+  }
+
   if (solutionNav) {
     switch (template) {
-      case 'custom':
-        return (
-          <KibanaPageCustom {...rest}>
-            {optionalSideBar}
-            <EuiPageContent {...pageContentProps} borderRadius={'none'}>
-              {optionalGlobals}
-              {children}
-            </EuiPageContent>
-          </KibanaPageCustom>
-        );
-
-      case 'empty':
+      case 'centeredContent':
         return (
           <KibanaPageDefault {...rest}>
             {optionalSideBar}
@@ -85,7 +84,6 @@ export const KibanaPage: FunctionComponent<KibanaPageProps> = ({
                     restrictWidth={restrictWidth}
                     {...pageHeader}
                   />
-                  <EuiSpacer />
                 </>
               )}
               <EuiPageContentBody restrictWidth={restrictWidth}>
@@ -98,49 +96,48 @@ export const KibanaPage: FunctionComponent<KibanaPageProps> = ({
   }
 
   switch (template) {
-    case 'custom':
+    case 'centeredBody':
       return (
-        <KibanaPageCustom {...rest} restrictWidth={restrictWidth}>
+        <EuiPage grow={true} paddingSize={optionalGlobals ? 'none' : 'l'}>
           <EuiPageBody>
             {optionalGlobals}
-            {children}
-          </EuiPageBody>
-        </KibanaPageCustom>
-      );
-
-    case 'empty':
-      return (
-        <EuiPage grow={true} paddingSize="none">
-          <EuiPageBody>
-            {globals}
-            <KibanaPageEmpty
-              iconType={pageHeader?.iconType}
-              title={<h2>{pageHeader?.pageTitle}</h2>}
-              body={<p>{pageHeader?.description}</p>}
-              actions={pageHeader?.actionButtons}
-            />
+            <EuiPageContent
+              verticalPosition="center"
+              horizontalPosition="center"
+              paddingSize="none">
+              <EuiEmptyPrompt
+                iconType={pageHeader?.iconType}
+                title={<h2>{pageHeader?.pageTitle}</h2>}
+                body={<p>{pageHeader?.description}</p>}
+                actions={pageHeader?.actionButtons}
+              />
+            </EuiPageContent>
           </EuiPageBody>
         </EuiPage>
       );
 
     default:
       return (
-        <KibanaPageDefault {...rest}>
+        <EuiPage paddingSize="none">
           <EuiPageBody>
             {optionalGlobals}
             {pageHeader && (
-              <KibanaPageHeader restrictWidth={restrictWidth} {...pageHeader} />
+              <KibanaPageHeader
+                restrictWidth={restrictWidth}
+                paddingSize="l"
+                {...pageHeader}
+              />
             )}
             <EuiPageContent
-              {...pageContentProps}
-              borderRadius={'none'}
-              hasShadow={false}>
-              <EuiPageContentBody restrictWidth={restrictWidth}>
+              borderRadius="none"
+              hasShadow={false}
+              paddingSize="none">
+              <EuiPageContentBody restrictWidth={restrictWidth} paddingSize="l">
                 {children}
               </EuiPageContentBody>
             </EuiPageContent>
           </EuiPageBody>
-        </KibanaPageDefault>
+        </EuiPage>
       );
   }
 };

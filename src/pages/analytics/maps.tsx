@@ -34,7 +34,6 @@ export default () => {
 
   return (
     <KibanaPage
-      restrictWidth={true}
       pageHeader={{
         pageTitle: PAGE_TITLE,
         actionButtons: [

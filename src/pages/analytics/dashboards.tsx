@@ -48,7 +48,7 @@ export default () => {
   }, [breadcrumbs]);
 
   return (
-    <KibanaPage restrictWidth={true} pageHeader={pageHeader}>
+    <KibanaPage pageHeader={pageHeader}>
       <EuiFieldSearch fullWidth placeholder="Search for by dashboard name..." />
       <EuiSpacer />
       <Link

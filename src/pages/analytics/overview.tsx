@@ -74,7 +74,7 @@ export default () => {
     <KibanaPage
       restrictWidth={true}
       pageHeader={{
-        alignItems: 'middle',
+        alignItems: 'center',
         pageTitle: PAGE_TITLE,
         iconType: 'logoKibana',
         actionButtons: [

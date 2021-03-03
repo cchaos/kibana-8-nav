@@ -41,7 +41,6 @@ export default () => {
 
   return (
     <KibanaPage
-      restrictWidth={true}
       pageHeader={{
         tabs: tabs,
         actionButtons: [

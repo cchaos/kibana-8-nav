@@ -64,7 +64,6 @@ export default () => {
 
   return (
     <KibanaPage
-      restrictWidth={true}
       pageHeader={{
         pageTitle: 'Welcome to the Elastic stack!',
       }}>

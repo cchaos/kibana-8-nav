@@ -74,5 +74,11 @@ export default () => {
     });
   }, [breadcrumbs, headerLinks]);
 
-  return <KibanaPage template="empty" globals={true} pageHeader={pageHeader} />;
+  return (
+    <KibanaPage
+      template="centeredBody"
+      globals={true}
+      pageHeader={pageHeader}
+    />
+  );
 };
