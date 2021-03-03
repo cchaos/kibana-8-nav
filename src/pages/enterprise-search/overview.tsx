@@ -36,13 +36,12 @@ export default () => {
 
   return (
     <KibanaPage
-      template="custom"
-      restrictWidth={true}
-      paddingSize="l"
+      template="empty"
       pageHeader={{
         pageTitle: 'Enterprise Search',
         iconType: 'logoWorkplaceSearch',
       }}>
+      <EuiSpacer size="xl" />
       <EuiFlexGroup>
         <EuiFlexItem grow={false}>
           <EuiCard

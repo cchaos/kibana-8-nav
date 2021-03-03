@@ -2,22 +2,12 @@
 @import './sticky/index';
 @import './page/index';
 
-.euiButtonContent > * + * {
-  &:empty {
-    margin: 0;
-  }
-}
-
 .euiBody--collapsibleNavIsDocked {
   transition: none;
 }
 
 .euiCollapsibleNav--isDocked {
   animation: none;
-}
-
-.euiTab:not(.euiTab--small) {
-  @include euiFontSizeM;
 }
 
 .euiCard--primaryTitle .euiCard__title {

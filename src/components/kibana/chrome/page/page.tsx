@@ -8,6 +8,7 @@ import {
   EuiPageContentBody,
   EuiPageHeader,
   EuiPageHeaderProps,
+  EuiPageSideBar,
   EuiPageTemplate,
   EuiPageTemplateProps,
 } from '@elastic/eui';
@@ -38,12 +39,11 @@ export const KibanaPage: FunctionComponent<KibanaPageProps> = ({
   restrictWidth = true,
   ...rest
 }) => {
-  const pageHeaderProps: Partial<EuiPageHeaderProps> = {};
-
   if (pageHeader && pageHeader.time) {
-    pageHeaderProps.rightSideItems = [<EuiSuperDatePicker />];
-    pageHeaderProps.responsive = 'reverse';
-    pageHeaderProps.rightSideGroupProps = { responsive: true };
+    pageHeader.rightSideItems = [<EuiSuperDatePicker />];
+    pageHeader.responsive = 'reverse';
+    pageHeader.rightSideGroupProps = { responsive: true };
+    pageHeader.time = undefined;
   }
 
   const optionalSideBar = solutionNav ? (
@@ -58,7 +58,7 @@ export const KibanaPage: FunctionComponent<KibanaPageProps> = ({
         template="empty"
         restrictWidth={optionalGlobals ? false : restrictWidth}
         paddingSize={optionalGlobals ? 'none' : 'l'}
-        pageSideBar={solutionNav}
+        pageSideBar={optionalSideBar}
         pageHeader={pageHeader}
         {...rest}>
         {optionalGlobals}
@@ -67,83 +67,81 @@ export const KibanaPage: FunctionComponent<KibanaPageProps> = ({
     );
   }
 
-  if (solutionNav) {
+  if (optionalGlobals) {
     switch (template) {
-      case 'centeredContent':
+      case 'centeredBody':
         return (
-          <EuiPageTemplate
-            template="centeredContent"
-            pageSideBar={optionalSideBar}
-            {...rest}>
-            {pageHeader && (
-              <EuiEmptyPrompt
-                iconType={pageHeader?.iconType}
-                title={<h2>{pageHeader?.pageTitle}</h2>}
-                body={<p>{pageHeader?.description}</p>}
-                actions={pageHeader?.rightSideItems}
-              />
-            )}
-            {children}
-          </EuiPageTemplate>
+          <EuiPage grow={true} paddingSize={optionalGlobals ? 'none' : 'l'}>
+            <EuiPageBody>
+              {optionalGlobals}
+              <EuiPageContent
+                verticalPosition="center"
+                horizontalPosition="center"
+                paddingSize="none">
+                <EuiEmptyPrompt
+                  iconType={pageHeader?.iconType}
+                  title={<h2>{pageHeader?.pageTitle}</h2>}
+                  body={<p>{pageHeader?.description}</p>}
+                  actions={pageHeader?.rightSideItems}
+                />
+              </EuiPageContent>
+            </EuiPageBody>
+          </EuiPage>
         );
 
       default:
         return (
-          <EuiPageTemplate
-            pageSideBar={optionalSideBar}
-            pageHeader={pageHeader && { ...pageHeader, ...pageHeaderProps }}
-            {...rest}>
-            {optionalGlobals}
-            {children}
-          </EuiPageTemplate>
+          <EuiPage paddingSize="none">
+            <EuiPageSideBar sticky>{optionalSideBar}</EuiPageSideBar>
+
+            <EuiPageBody panelled paddingSize="none" restrictWidth={false}>
+              {optionalGlobals}
+              <EuiPageHeader restrictWidth={restrictWidth} {...pageHeader} />
+
+              <EuiPageContent
+                hasBorder={false}
+                hasShadow={false}
+                paddingSize="none"
+                color="transparent"
+                borderRadius="none">
+                <EuiPageContentBody restrictWidth={restrictWidth}>
+                  {children}
+                </EuiPageContentBody>
+              </EuiPageContent>
+            </EuiPageBody>
+          </EuiPage>
         );
     }
   }
 
-  switch (template) {
-    case 'centeredBody':
-      return (
-        <EuiPage grow={true} paddingSize={optionalGlobals ? 'none' : 'l'}>
-          <EuiPageBody>
-            {optionalGlobals}
-            <EuiPageContent
-              verticalPosition="center"
-              horizontalPosition="center"
-              paddingSize="none">
-              <EuiEmptyPrompt
-                iconType={pageHeader?.iconType}
-                title={<h2>{pageHeader?.pageTitle}</h2>}
-                body={<p>{pageHeader?.description}</p>}
-                actions={pageHeader?.rightSideItems}
-              />
-            </EuiPageContent>
-          </EuiPageBody>
-        </EuiPage>
-      );
-
-    default:
-      return (
-        <EuiPage paddingSize="none">
-          <EuiPageBody>
-            {optionalGlobals}
-            {pageHeader && (
-              <EuiPageHeader
-                restrictWidth={restrictWidth}
-                paddingSize="l"
-                {...pageHeader}
-                {...pageHeaderProps}
-              />
-            )}
-            <EuiPageContent
-              borderRadius="none"
-              hasShadow={false}
-              paddingSize="none">
-              <EuiPageContentBody restrictWidth={restrictWidth} paddingSize="l">
-                {children}
-              </EuiPageContentBody>
-            </EuiPageContent>
-          </EuiPageBody>
-        </EuiPage>
-      );
+  /**
+   * An easy way to create the right content for empty pages
+   */
+  let emptyPrompt;
+  if (template === 'centeredBody' && pageHeader) {
+    emptyPrompt = (
+      <EuiEmptyPrompt
+        iconType={pageHeader.iconType}
+        title={<h2>{pageHeader.pageTitle}</h2>}
+        body={<p>{pageHeader.description}</p>}
+        actions={pageHeader.rightSideItems}
+      />
+    );
+    pageHeader = undefined;
   }
+
+  /**
+   * When the globals don't exist, can just use the EuiPageTemplate
+   */
+  return (
+    <EuiPageTemplate
+      template={template}
+      pageSideBar={optionalSideBar}
+      pageHeader={pageHeader}
+      restrictWidth={restrictWidth}
+      {...rest}>
+      {emptyPrompt}
+      {children}
+    </EuiPageTemplate>
+  );
 };

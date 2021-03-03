@@ -8,13 +8,13 @@ import {
   EuiStat,
   EuiHorizontalRule,
   EuiPanel,
+  EuiPageHeaderProps,
 } from '@elastic/eui';
 
 import { SecurityPage } from '../../components/kibana/security/page';
 
 // @ts-ignore
 import tracesImg from '../../images/Traces - Explorer.png';
-import { KibanaPageHeader } from '../../components/kibana/chrome/page/page_header';
 
 const breadcrumbs: EuiBreadcrumb[] = [
   {
@@ -26,7 +26,7 @@ const breadcrumbs: EuiBreadcrumb[] = [
   },
 ];
 
-const pageHeader = {
+const pageHeader: EuiPageHeaderProps = {
   pageTitle: 'Suspcious login',
   description: 'This timeline is to investigate a suspicious login.',
   rightSideItems: [
@@ -35,18 +35,19 @@ const pageHeader = {
     </EuiButton>,
     <EuiButton iconType="starEmpty">Add to favorites</EuiButton>,
   ],
+  paddingSize: 'l',
 };
 
 export default () => (
   <SecurityPage
-    template="custom"
     globals={true}
     pageTitle="Suspicious login"
     navItem="Events"
     breadcrumbs={breadcrumbs}
-    pageContentProps={{ paddingSize: 'none' }}>
-    <KibanaPageHeader {...pageHeader} />
-    <EuiPanel hasShadow={false} color="transparent">
+    pageHeader={pageHeader}
+    restrictWidth={false}>
+    <EuiHorizontalRule margin="none" />
+    <EuiPanel paddingSize="l" color="transparent">
       <EuiFlexGroup responsive={false} wrap>
         <EuiFlexItem>
           <EuiStat title="1" description="Default color" />

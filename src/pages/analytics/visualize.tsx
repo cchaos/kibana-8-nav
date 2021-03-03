@@ -62,12 +62,12 @@ export default () => {
   return (
     <KibanaPage
       restrictWidth={false}
-      paddingSize="none"
       pageHeader={{
         tabs: tabs,
         time: true,
         alignItems: 'center',
-      }}>
+      }}
+      pageContentBodyProps={{ paddingSize: 'none' }}>
       <div className="pageScreenshot__TBD">
         <img
           className="pageScreenshot pageScreenshot--fullWidth"

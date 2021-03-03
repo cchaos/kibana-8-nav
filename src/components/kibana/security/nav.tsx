@@ -28,17 +28,15 @@ export function SecurityNav({ navItem }: Props) {
             // @ts-ignore
             navigate(data.url);
           }
-        : () => {
-            return null;
-          },
+        : undefined,
       ...data,
     };
   };
 
   const sideNav = [
-    createItem('Overview', { url: 'security/overview' }),
-    createItem('Alerts'),
+    createItem('Alerts', { disabled: false }),
     createItem('Hosts', {
+      disabled: false,
       items: [
         createItem('All hosts', { disabled: true }), // TODO: Allow side nav items to be disabled
         createItem('Anamolies'),
@@ -46,15 +44,16 @@ export function SecurityNav({ navItem }: Props) {
         createItem('Events', { url: 'security/event-suspicious-login' }),
       ],
     }),
-    createItem('Network'),
+    createItem('Network', { disabled: false }),
     createItem('Investigations', {
+      disabled: false,
       items: [
         createItem('Timelines'),
         createItem('Resolver'),
         createItem('Cases'),
       ],
     }),
-    createItem('Management'),
+    createItem('Management', { disabled: false }),
   ];
 
   return (
