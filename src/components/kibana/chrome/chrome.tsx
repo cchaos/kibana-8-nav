@@ -20,6 +20,7 @@ export const KibanaChrome: React.FunctionComponent<KibanaChromeProps> = ({
   pageTitle,
   breadcrumbs,
   headerLinks,
+  saved,
 }) => {
   return (
     <EuiPageLayout numberOfStickyHeaders={2} fullHeight={fullHeight}>
@@ -27,7 +28,11 @@ export const KibanaChrome: React.FunctionComponent<KibanaChromeProps> = ({
         <title>{pageTitle} | Kibana 8 Prototype</title>
       </Helmet>
 
-      <KibanaHeader breadcrumbs={breadcrumbs} headerLinks={headerLinks} />
+      <KibanaHeader
+        breadcrumbs={breadcrumbs}
+        headerLinks={headerLinks}
+        saved={saved}
+      />
 
       {children}
     </EuiPageLayout>

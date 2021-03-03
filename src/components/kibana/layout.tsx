@@ -39,6 +39,7 @@ const Layout: FunctionComponent<{
     ],
     headerLinks: [],
     pageTitle: 'Home',
+    saved: false,
   });
 
   return (

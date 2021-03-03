@@ -17,7 +17,10 @@ type Props = {
   currentUrl?: string;
 };
 
-export function DocsInPageNav({ currentUrl = 'introduction' }: Props) {
+export function DocsInPageNav({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  currentUrl,
+}: Props) {
   const [isSideNavOpenOnMobile, setIsSideNavOpenOnMobile] = useState(false);
 
   const toggleOpenOnMobile = () => {

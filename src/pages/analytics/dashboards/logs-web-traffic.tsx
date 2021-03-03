@@ -56,6 +56,7 @@ export default () => {
       breadcrumbs,
       headerLinks,
       pageTitle: '[Logs] Web Traffic | Dashboards',
+      saved: true,
     });
   }, [breadcrumbs, headerLinks]);
 
