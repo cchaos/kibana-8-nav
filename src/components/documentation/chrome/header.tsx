@@ -27,8 +27,8 @@ export const DocsHeader: React.FunctionComponent<DocsHeaderProps> = ({
     return (
       <EuiHeaderLogo
         iconType="logoElastic"
-        onClick={() => navigate('documentation')}
-        aria-label="Goes to home">
+        onClick={() => navigate('cloud')}
+        aria-label="Goes to Console home">
         Elastic
       </EuiHeaderLogo>
     );

@@ -142,8 +142,12 @@ export default () => (
     </EuiPageBody>
     <EuiSticky
       top={96 + 16}
-      style={{ display: 'flex', maxHeight: `calc(100vh - ${96 + 32}px)` }}>
-      <EuiPageSideBar style={{ flexGrow: 1, paddingBottom: 0 }}>
+      style={{
+        display: 'flex',
+        maxHeight: `calc(100vh - ${96 + 32}px)`,
+        marginBottom: -16,
+      }}>
+      <EuiPageSideBar style={{ flexGrow: 1, padding: 24 }}>
         <DocsInPageNav />
       </EuiPageSideBar>
     </EuiSticky>

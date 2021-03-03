@@ -26,35 +26,32 @@ export function DocsInPageNav({ currentUrl = 'introduction' }: Props) {
 
   const createItem = (name: string, data = {}) => {
     return {
-      ...data,
       id: name,
       name,
       // @ts-ignore
-      isSelected: data.url && data.url === currentUrl,
-      // @ts-ignore
-      // disabled: !data.url,
+      disabled: !data.url && !data.isSelected,
       // @ts-ignore
       onClick: data.url
         ? () => {
             // @ts-ignore
             navigate(data.url);
           }
-        : () => {
-            return null;
-          },
+        : undefined,
+      ...data,
     };
   };
 
   const sideNav = [
-    createItem('Introduction', { url: 'introduction' }),
     createItem('Design Principles', {
+      disabled: false,
       items: [
-        createItem('Purpose with delight'),
+        createItem('Purpose with delight', { isSelected: true }),
         createItem('Empowering through thoughtfulness'),
         createItem('Optimized, yet flexible'),
       ],
     }),
     createItem('Culture', {
+      disabled: false,
       items: [
         createItem('Purpose'),
         createItem('Workflow values'),
@@ -62,6 +59,7 @@ export function DocsInPageNav({ currentUrl = 'introduction' }: Props) {
       ],
     }),
     createItem('Practices', {
+      disabled: false,
       items: [
         createItem('Communication'),
         createItem('Tooling'),
