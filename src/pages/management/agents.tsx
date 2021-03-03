@@ -64,7 +64,7 @@ export default () => {
             </EuiText>
           </>
         ),
-        actionButtons: [
+        rightSideItems: [
           <EuiButton fill iconType="plusInCircle">
             Add agent
           </EuiButton>,

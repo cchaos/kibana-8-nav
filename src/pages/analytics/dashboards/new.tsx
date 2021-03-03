@@ -56,7 +56,7 @@ const pageHeader: KibanaPageHeaderProps = {
   iconType: 'dashboardApp',
   description:
     'Select from a list of already created visualizations or start a new one.',
-  actionButtons: [
+  rightSideItems: [
     <KibanaPageHeaderPrimaryAddButton>
       Add panel
     </KibanaPageHeaderPrimaryAddButton>,

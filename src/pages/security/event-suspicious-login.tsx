@@ -29,7 +29,7 @@ const breadcrumbs: EuiBreadcrumb[] = [
 const pageHeader = {
   pageTitle: 'Suspcious login',
   description: 'This timeline is to investigate a suspicious login.',
-  actionButtons: [
+  rightSideItems: [
     <EuiButton fill iconType="arrowDown" iconSide="right">
       Add to case
     </EuiButton>,

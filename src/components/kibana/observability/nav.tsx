@@ -28,16 +28,14 @@ export function ObservabilityNav({ navItem }: Props) {
             // @ts-ignore
             navigate(data.url);
           }
-        : () => {
-            return null;
-          },
+        : undefined,
       ...data,
     };
   };
 
   const sideNav = [
-    createItem('Overview', { url: 'observability/overview' }),
     createItem('Logs', {
+      disabled: false,
       items: [
         createItem('Stream', { disabled: true }), // TODO: Allow side nav items to be disabled
         createItem('Log rage'),
@@ -45,8 +43,11 @@ export function ObservabilityNav({ navItem }: Props) {
         createItem('Settings'),
       ],
     }),
-    createItem('Metrics'),
+    createItem('Metrics', {
+      disabled: false,
+    }),
     createItem('APM', {
+      disabled: false,
       items: [
         createItem('Services'),
         createItem('Traces', { url: 'observability/trace' }),
@@ -61,7 +62,9 @@ export function ObservabilityNav({ navItem }: Props) {
         }),
       ],
     }),
-    createItem('Uptime'),
+    createItem('Uptime', {
+      disabled: false,
+    }),
   ];
 
   return (

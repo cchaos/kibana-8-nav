@@ -77,7 +77,7 @@ export default () => {
         alignItems: 'center',
         pageTitle: PAGE_TITLE,
         iconType: 'logoKibana',
-        actionButtons: [
+        rightSideItems: [
           <EuiCallOut size="s" title="New in 7.10!">
             <p>
               Congratulations on upgrading! Want to see all the cool new things?{' '}

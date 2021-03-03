@@ -43,7 +43,7 @@ export default () => {
     <KibanaPage
       pageHeader={{
         tabs: tabs,
-        actionButtons: [
+        rightSideItems: [
           <KibanaPageHeaderPrimaryAddButton>
             Add workpad
           </KibanaPageHeaderPrimaryAddButton>,

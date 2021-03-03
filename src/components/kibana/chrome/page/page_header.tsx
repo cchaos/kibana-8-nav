@@ -18,7 +18,7 @@ import {
 
 export type KibanaPageHeaderProps = EuiPageHeaderProps & {
   time?: boolean;
-  actionButtons?: ReactNode[];
+  rightSideItems?: ReactNode[];
 };
 
 export const KibanaPageHeaderPrimaryAddButton: FunctionComponent<
@@ -32,7 +32,6 @@ export const KibanaPageHeader: FunctionComponent<KibanaPageHeaderProps> = ({
   className,
   rightSideItems,
   time,
-  actionButtons,
   ...rest
 }) => {
   const classes = classNames('kbnPageHeader', className);
@@ -45,8 +44,6 @@ export const KibanaPageHeader: FunctionComponent<KibanaPageHeaderProps> = ({
       responsive: 'reverse',
       rightSideGroupProps: { responsive: true },
     };
-  } else if (!rightSideItems && actionButtons) {
-    rightSideItems = actionButtons;
   }
 
   return (

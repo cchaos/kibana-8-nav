@@ -29,7 +29,7 @@ const breadcrumbs: EuiBreadcrumb[] = [
 
 const pageHeader: KibanaPageHeaderProps = {
   pageTitle: PAGE_TITLE,
-  actionButtons: [
+  rightSideItems: [
     <KibanaPageHeaderPrimaryAddButton
       onClick={() => navigate('analytics/dashboards/new')}>
       Add dashboard

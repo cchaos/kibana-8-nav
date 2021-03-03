@@ -22,7 +22,7 @@ export const KibanaChrome: React.FunctionComponent<KibanaChromeProps> = ({
   headerLinks,
 }) => {
   return (
-    <EuiPageLayout fullHeight={fullHeight}>
+    <EuiPageLayout numberOfStickyHeaders={2} fullHeight={fullHeight}>
       <Helmet>
         <title>{pageTitle} | Kibana 8 Prototype</title>
       </Helmet>

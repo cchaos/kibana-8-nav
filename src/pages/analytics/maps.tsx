@@ -36,7 +36,7 @@ export default () => {
     <KibanaPage
       pageHeader={{
         pageTitle: PAGE_TITLE,
-        actionButtons: [
+        rightSideItems: [
           <KibanaPageHeaderPrimaryAddButton>
             Add map
           </KibanaPageHeaderPrimaryAddButton>,

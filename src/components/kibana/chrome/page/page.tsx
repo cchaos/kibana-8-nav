@@ -6,22 +6,26 @@ import {
   EuiPageBody,
   EuiPageContent,
   EuiPageContentBody,
-  EuiPageSideBar,
+  EuiPageHeader,
+  EuiPageHeaderProps,
   EuiPageTemplate,
   EuiPageTemplateProps,
 } from '@elastic/eui';
 
-import { KibanaPageHeader, KibanaPageHeaderProps } from './page_header';
-import { KibanaPageEmpty } from './page_empty';
-import { KibanaPageDefault } from './page_default';
 import { KibanaGlobals } from '../globals';
+import { EuiSuperDatePicker } from '../../../eui';
 
 export type KibanaPageProps = EuiPageTemplateProps & {
-  pageHeader?: KibanaPageHeaderProps;
   globals?: boolean;
   solutionNav?: ReactNode;
   resizableSidebar?: boolean;
   bottomBar?: ReactNode;
+  pageHeader?: EuiPageHeaderProps & {
+    /**
+     * Time will wipe out any rightSideItems / rightSideContent
+     */
+    time?: boolean;
+  };
 };
 
 export const KibanaPage: FunctionComponent<KibanaPageProps> = ({
@@ -31,13 +35,19 @@ export const KibanaPage: FunctionComponent<KibanaPageProps> = ({
   solutionNav,
   children,
   bottomBar,
-
-  pageContentProps,
   restrictWidth = true,
   ...rest
 }) => {
+  const pageHeaderProps: Partial<EuiPageHeaderProps> = {};
+
+  if (pageHeader && pageHeader.time) {
+    pageHeaderProps.rightSideItems = [<EuiSuperDatePicker />];
+    pageHeaderProps.responsive = 'reverse';
+    pageHeaderProps.rightSideGroupProps = { responsive: true };
+  }
+
   const optionalSideBar = solutionNav ? (
-    <EuiPageSideBar>{solutionNav}</EuiPageSideBar>
+    <div style={{ padding: 24 }}>{solutionNav}</div>
   ) : undefined;
 
   const optionalGlobals = globals && <KibanaGlobals />;
@@ -49,6 +59,7 @@ export const KibanaPage: FunctionComponent<KibanaPageProps> = ({
         restrictWidth={optionalGlobals ? false : restrictWidth}
         paddingSize={optionalGlobals ? 'none' : 'l'}
         pageSideBar={solutionNav}
+        pageHeader={pageHeader}
         {...rest}>
         {optionalGlobals}
         {children}
@@ -60,37 +71,31 @@ export const KibanaPage: FunctionComponent<KibanaPageProps> = ({
     switch (template) {
       case 'centeredContent':
         return (
-          <KibanaPageDefault {...rest}>
-            {optionalSideBar}
-
-            <KibanaPageEmpty
-              iconType={pageHeader?.iconType}
-              title={<h2>{pageHeader?.pageTitle}</h2>}
-              body={<p>{pageHeader?.description}</p>}
-              actions={pageHeader?.actionButtons}
-            />
-          </KibanaPageDefault>
+          <EuiPageTemplate
+            template="centeredContent"
+            pageSideBar={optionalSideBar}
+            {...rest}>
+            {pageHeader && (
+              <EuiEmptyPrompt
+                iconType={pageHeader?.iconType}
+                title={<h2>{pageHeader?.pageTitle}</h2>}
+                body={<p>{pageHeader?.description}</p>}
+                actions={pageHeader?.rightSideItems}
+              />
+            )}
+            {children}
+          </EuiPageTemplate>
         );
 
       default:
         return (
-          <KibanaPageDefault {...rest}>
-            {optionalSideBar}
-            <EuiPageContent {...pageContentProps} borderRadius={'none'}>
-              {optionalGlobals}
-              {pageHeader && (
-                <>
-                  <KibanaPageHeader
-                    restrictWidth={restrictWidth}
-                    {...pageHeader}
-                  />
-                </>
-              )}
-              <EuiPageContentBody restrictWidth={restrictWidth}>
-                {children}
-              </EuiPageContentBody>
-            </EuiPageContent>
-          </KibanaPageDefault>
+          <EuiPageTemplate
+            pageSideBar={optionalSideBar}
+            pageHeader={pageHeader && { ...pageHeader, ...pageHeaderProps }}
+            {...rest}>
+            {optionalGlobals}
+            {children}
+          </EuiPageTemplate>
         );
     }
   }
@@ -109,7 +114,7 @@ export const KibanaPage: FunctionComponent<KibanaPageProps> = ({
                 iconType={pageHeader?.iconType}
                 title={<h2>{pageHeader?.pageTitle}</h2>}
                 body={<p>{pageHeader?.description}</p>}
-                actions={pageHeader?.actionButtons}
+                actions={pageHeader?.rightSideItems}
               />
             </EuiPageContent>
           </EuiPageBody>
@@ -122,10 +127,11 @@ export const KibanaPage: FunctionComponent<KibanaPageProps> = ({
           <EuiPageBody>
             {optionalGlobals}
             {pageHeader && (
-              <KibanaPageHeader
+              <EuiPageHeader
                 restrictWidth={restrictWidth}
                 paddingSize="l"
                 {...pageHeader}
+                {...pageHeaderProps}
               />
             )}
             <EuiPageContent

@@ -1,18 +1,27 @@
 import React from 'react';
 
-import { EuiEmptyPrompt, EuiButton } from '@elastic/eui';
+import { EuiEmptyPrompt, EuiButton, EuiBreadcrumb } from '@elastic/eui';
 
 import { ObservabilityPage } from '../../components/kibana/observability/page';
+
+const breadcrumbs: EuiBreadcrumb[] = [
+  {
+    text: 'APM',
+    href: '#',
+  },
+  {
+    text: 'Settings',
+  },
+];
 
 export default () => (
   <>
     <ObservabilityPage
+      template="centeredContent"
       pageTitle="APM Settings"
-      navItem="Agent configuration"
-      pageContentProps={{
-        verticalPosition: 'center',
-        horizontalPosition: 'center',
-      }}>
+      headerLinks={<></>}
+      breadcrumbs={breadcrumbs}
+      navItem="Agent configuration">
       <EuiEmptyPrompt
         iconType="minusInCircle"
         title={<h1>No configurations found</h1>}
