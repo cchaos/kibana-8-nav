@@ -3,16 +3,18 @@ import React, {
   ReactNode,
   useContext,
   useEffect,
+  useRef,
 } from 'react';
 
 import {
   EuiBreadcrumb,
   EuiPageTemplate,
   EuiPageTemplateProps,
+  useIsWithinBreakpoints,
+  useResizeObserver,
 } from '@elastic/eui';
 
 import { CloudChromeContext } from '../layout';
-import { EuiSticky } from '../../eui';
 
 export type CloudPageProps = EuiPageTemplateProps & {
   breadcrumbs?: EuiBreadcrumb[];
@@ -26,10 +28,12 @@ export const CloudPage: FunctionComponent<CloudPageProps> = ({
   pageTitle,
   sideNav,
   bottomBar,
+  pageBodyProps = {},
   className,
   children,
   ...rest
 }) => {
+  const isMobile = useIsWithinBreakpoints(['xs', 's']);
   const setHeaderItems = useContext(CloudChromeContext);
 
   useEffect(() => {
@@ -39,20 +43,33 @@ export const CloudPage: FunctionComponent<CloudPageProps> = ({
     });
   }, [breadcrumbs]);
 
-  const optionalBottomBar = bottomBar && (
-    <EuiSticky
-      style={{ marginBottom: -24 }}
-      left={-24}
-      right={-24}
-      zIndex={999}
-      className="euiBottomBar euiBottomBar--paddingSmall">
-      {bottomBar}
-    </EuiSticky>
-  );
+  const resizeRef = useRef();
+  const dimensions = useResizeObserver(resizeRef.current || null);
+
+  let optionalBottomBar;
+  if (bottomBar) {
+    optionalBottomBar = (
+      <div
+        ref={resizeRef}
+        className="euiBottomBar euiBottomBar--paddingSmall"
+        style={{ left: isMobile ? 0 : 240 }}>
+        {bottomBar}
+      </div>
+    );
+
+    pageBodyProps.style = {
+      paddingBottom: dimensions.height + 24,
+      ...pageBodyProps.style,
+    };
+  }
 
   return (
     <>
-      <EuiPageTemplate className={className} pageSideBar={sideNav} {...rest}>
+      <EuiPageTemplate
+        className={className}
+        pageSideBar={sideNav}
+        pageBodyProps={pageBodyProps}
+        {...rest}>
         {children}
         {optionalBottomBar}
       </EuiPageTemplate>

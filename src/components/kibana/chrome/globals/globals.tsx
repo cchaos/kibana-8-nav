@@ -2,11 +2,11 @@ import React, { ReactElement, HTMLAttributes } from 'react';
 import classNames from 'classnames';
 import {
   CommonProps,
-  EuiButton,
   EuiFieldText,
   EuiFlexGroup,
   EuiFlexItem,
   EuiButtonEmpty,
+  EuiButtonIcon,
 } from '@elastic/eui';
 import { EuiSuperDatePicker } from '../../../eui';
 
@@ -19,7 +19,12 @@ export function KibanaGlobals({ className, ...rest }: Props): ReactElement {
     <div className={classes}>
       <EuiFlexGroup gutterSize="s" responsive={false} {...rest}>
         <EuiFlexItem grow={false}>
-          <EuiButton size="s" iconType="filter" minWidth={0} />
+          <EuiButtonIcon
+            size="s"
+            iconType="filter"
+            aria-label="Filter options"
+            display="base"
+          />
         </EuiFlexItem>
         <EuiFlexItem grow={true}>
           <EuiFieldText

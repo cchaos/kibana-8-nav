@@ -7,6 +7,7 @@ import {
   EuiFlexItem,
   EuiPopover,
   EuiText,
+  EuiButtonIcon,
 } from '@elastic/eui';
 
 type Props = CommonProps & HTMLAttributes<HTMLDivElement>;
@@ -41,7 +42,7 @@ export function EuiSuperDatePicker({
           isOpen={isPopoverOpen}
           closePopover={() => setIsPopoverOpen(false)}>
           <div style={{ width: 200 }}>
-            <EuiText>
+            <EuiText size="s">
               <p>
                 Example of a popover near the header with a buffer affording for
                 the double fixed headers.
@@ -51,7 +52,12 @@ export function EuiSuperDatePicker({
         </EuiPopover>
       </EuiFlexItem>
       <EuiFlexItem grow={false}>
-        <EuiButton size="s" iconType="refresh" minWidth={0} />
+        <EuiButtonIcon
+          size="s"
+          iconType="refresh"
+          display="base"
+          aria-label="Refresh"
+        />
       </EuiFlexItem>
     </EuiFlexGroup>
   );

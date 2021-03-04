@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactNode } from 'react';
+import React, { FunctionComponent, ReactNode, useRef } from 'react';
 
 import {
   EuiEmptyPrompt,
@@ -11,6 +11,8 @@ import {
   EuiPageSideBar,
   EuiPageTemplate,
   EuiPageTemplateProps,
+  useIsWithinBreakpoints,
+  useResizeObserver,
 } from '@elastic/eui';
 
 import { KibanaGlobals } from '../globals';
@@ -37,8 +39,11 @@ export const KibanaPage: FunctionComponent<KibanaPageProps> = ({
   children,
   bottomBar,
   restrictWidth = true,
+  pageContentProps = {},
   ...rest
 }) => {
+  const isMobile = useIsWithinBreakpoints(['xs', 's']);
+
   if (pageHeader && pageHeader.time) {
     pageHeader.rightSideItems = [<EuiSuperDatePicker />];
     pageHeader.responsive = 'reverse';
@@ -52,17 +57,39 @@ export const KibanaPage: FunctionComponent<KibanaPageProps> = ({
 
   const optionalGlobals = globals && <KibanaGlobals />;
 
+  const resizeRef = useRef();
+  const dimensions = useResizeObserver(resizeRef.current || null);
+
+  let optionalBottomBar;
+  if (bottomBar) {
+    optionalBottomBar = (
+      <div
+        ref={resizeRef}
+        className="euiBottomBar euiBottomBar--paddingSmall"
+        style={{ left: isMobile || !solutionNav ? 0 : 240 }}>
+        {bottomBar}
+      </div>
+    );
+
+    pageContentProps.style = {
+      paddingBottom: dimensions.height + 24,
+      ...pageContentProps.style,
+    };
+  }
+
   if (template === 'empty') {
     return (
       <EuiPageTemplate
         template="empty"
         restrictWidth={optionalGlobals ? false : restrictWidth}
+        pageContentProps={pageContentProps}
         paddingSize={optionalGlobals ? 'none' : 'l'}
         pageSideBar={optionalSideBar}
         pageHeader={pageHeader}
         {...rest}>
         {optionalGlobals}
         {children}
+        {optionalBottomBar}
       </EuiPageTemplate>
     );
   }
@@ -75,6 +102,7 @@ export const KibanaPage: FunctionComponent<KibanaPageProps> = ({
             <EuiPageBody>
               {optionalGlobals}
               <EuiPageContent
+                {...pageContentProps}
                 verticalPosition="center"
                 horizontalPosition="center"
                 paddingSize="none">
@@ -99,6 +127,7 @@ export const KibanaPage: FunctionComponent<KibanaPageProps> = ({
               <EuiPageHeader restrictWidth={restrictWidth} {...pageHeader} />
 
               <EuiPageContent
+                {...pageContentProps}
                 hasBorder={false}
                 hasShadow={false}
                 paddingSize="none"
@@ -106,6 +135,7 @@ export const KibanaPage: FunctionComponent<KibanaPageProps> = ({
                 borderRadius="none">
                 <EuiPageContentBody restrictWidth={restrictWidth}>
                   {children}
+                  {optionalBottomBar}
                 </EuiPageContentBody>
               </EuiPageContent>
             </EuiPageBody>
@@ -136,12 +166,14 @@ export const KibanaPage: FunctionComponent<KibanaPageProps> = ({
   return (
     <EuiPageTemplate
       template={template}
+      pageContentProps={pageContentProps}
       pageSideBar={optionalSideBar}
       pageHeader={pageHeader}
       restrictWidth={restrictWidth}
       {...rest}>
       {emptyPrompt}
       {children}
+      {optionalBottomBar}
     </EuiPageTemplate>
   );
 };

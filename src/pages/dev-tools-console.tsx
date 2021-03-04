@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 
-import { EuiBreadcrumb, EuiButton, EuiTab, EuiTabs } from '@elastic/eui';
+import { EuiBreadcrumb, EuiButton } from '@elastic/eui';
 import { KibanaChromeContext } from '../components/kibana/layout';
 import { KibanaPage } from '../components/kibana/chrome/page/page';
 
@@ -20,7 +20,6 @@ export default () => {
     setKibanaContext.setChrome({
       breadcrumbs,
       pageTitle: 'Dev tools | Console',
-      fullHeight: true,
     });
   }, [breadcrumbs]);
 
@@ -51,7 +50,7 @@ export default () => {
         </>
       }>
       {/** TODO: How to afford for bottom bar displacement outside of body */}
-      <div className="pageScreenshot__TBD" style={{ paddingBottom: 72 }}>
+      <div className="pageScreenshot__TBD">
         <img
           className="pageScreenshot pageScreenshot--fullWidth"
           alt="Dev Tools / Console"
