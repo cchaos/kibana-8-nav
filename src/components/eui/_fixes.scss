@@ -1,6 +1,3 @@
-.euiPageBody {
-  z-index: 1; // Stays above shadow of side nav
-}
 
 .euiBody--collapsibleNavIsDocked {
   transition: none;
@@ -35,6 +32,13 @@
   & + & {
     margin-top: $euiSizeL;
   }
+}
+
+$euiSideNavEmphasizedBackgroundColor: transparentize($euiColorMediumShade, .88);
+
+.euiSideNavItem--emphasized {
+  background-color: $euiSideNavEmphasizedBackgroundColor;
+  box-shadow: 100px 0 0 0 $euiSideNavEmphasizedBackgroundColor, -100px 0 0 0 $euiSideNavEmphasizedBackgroundColor;
 }
 
 

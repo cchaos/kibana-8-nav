@@ -43,11 +43,10 @@ export const CloudPage: FunctionComponent<CloudPageProps> = ({
     });
   }, [breadcrumbs]);
 
-  const resizeRef = useRef();
-  const dimensions = useResizeObserver(resizeRef.current || null);
-
   let optionalBottomBar;
   if (bottomBar) {
+    const resizeRef = useRef<HTMLDivElement | null>(null);
+
     optionalBottomBar = (
       <div
         ref={resizeRef}
@@ -56,6 +55,8 @@ export const CloudPage: FunctionComponent<CloudPageProps> = ({
         {bottomBar}
       </div>
     );
+
+    const dimensions = useResizeObserver(resizeRef.current);
 
     pageBodyProps.style = {
       paddingBottom: dimensions.height + 24,
