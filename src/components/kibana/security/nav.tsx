@@ -34,17 +34,23 @@ export function SecurityNav({ navItem }: Props) {
   };
 
   const sideNav = [
-    createItem('Alerts', { disabled: false }),
+    createItem('Alerts', {
+      disabled: false,
+      items: [createItem('Overview', { isSelected: false })],
+    }),
     createItem('Hosts', {
       disabled: false,
       items: [
-        createItem('All hosts', { disabled: true }), // TODO: Allow side nav items to be disabled
+        createItem('All hosts'),
         createItem('Anamolies'),
         createItem('Authentication list'),
         createItem('Events', { url: 'security/event-suspicious-login' }),
       ],
     }),
-    createItem('Network', { disabled: false }),
+    createItem('Network', {
+      disabled: false,
+      items: [createItem('Overview', { isSelected: false })],
+    }),
     createItem('Investigations', {
       disabled: false,
       items: [
@@ -53,7 +59,10 @@ export function SecurityNav({ navItem }: Props) {
         createItem('Cases'),
       ],
     }),
-    createItem('Management', { disabled: false }),
+    createItem('Management', {
+      disabled: false,
+      items: [createItem('Overview', { isSelected: false })],
+    }),
   ];
 
   return (

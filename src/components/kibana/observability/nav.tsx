@@ -37,7 +37,10 @@ export function ObservabilityNav({ navItem }: Props) {
     createItem('Logs', {
       disabled: false,
       items: [
-        createItem('Stream', { disabled: true }), // TODO: Allow side nav items to be disabled
+        createItem('Stream', {
+          disabled: true,
+          items: [createItem('Overview', { isSelected: false })],
+        }),
         createItem('Log rage'),
         createItem('Categories'),
         createItem('Settings'),
@@ -45,6 +48,7 @@ export function ObservabilityNav({ navItem }: Props) {
     }),
     createItem('Metrics', {
       disabled: false,
+      items: [createItem('Overview', { isSelected: false })],
     }),
     createItem('APM', {
       disabled: false,
@@ -64,6 +68,7 @@ export function ObservabilityNav({ navItem }: Props) {
     }),
     createItem('Uptime', {
       disabled: false,
+      items: [createItem('Overview', { isSelected: false })],
     }),
   ];
 

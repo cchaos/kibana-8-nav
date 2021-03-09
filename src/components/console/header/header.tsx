@@ -1,6 +1,11 @@
 import React from 'react';
 
-import { EuiHeaderLogo, EuiHeader } from '@elastic/eui';
+import {
+  EuiHeaderLogo,
+  EuiHeader,
+  EuiButtonIcon,
+  EuiHeaderSectionItem,
+} from '@elastic/eui';
 import { ConsoleHelpMenu } from './help_menu';
 import { navigate } from 'gatsby';
 import { KibanaChromeSearch } from '../../kibana/chrome/search';
@@ -55,6 +60,15 @@ export const ConsoleHeader: React.FunctionComponent<ConsoleHeaderProps> = ({
             <ConsoleHelpMenu />,
             <ConsoleUpdates />,
             <ConsoleUserMenu {...CloudUser} />,
+            <EuiHeaderSectionItem>
+              <EuiButtonIcon
+                aria-label="Add data"
+                iconType="plusInCircleFilled"
+                display="base"
+                size="s"
+                color="ghost"
+              />
+            </EuiHeaderSectionItem>,
           ],
           borders: 'none',
         },

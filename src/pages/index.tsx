@@ -57,19 +57,20 @@ export default () => {
   useEffect(() => {
     setKibanaContext.setChrome({
       breadcrumbs,
-      headerLinks,
       pageTitle: PAGE_TITLE,
     });
   }, [breadcrumbs, headerLinks]);
 
   return (
     <KibanaPage
+      template="empty"
       pageHeader={{
         pageTitle: 'Welcome to the Elastic stack!',
       }}>
+      <EuiSpacer />
       <SolutionCards />
       <EuiSpacer size="xl" />
-      <EuiPanel hasShadow={false} paddingSize="l" color="subdued">
+      <EuiPanel hasShadow={false} paddingSize="l" color="plain">
         <EuiFlexGroup alignItems="center">
           <EuiFlexItem grow={2}>
             <EuiText>

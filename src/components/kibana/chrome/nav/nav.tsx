@@ -22,6 +22,7 @@ import {
   EuiButtonIcon,
   EuiLink,
   EuiText,
+  EuiButton,
 } from '@elastic/eui';
 
 import {
@@ -131,6 +132,7 @@ export const KibanaNav: FunctionComponent<Props> = ({
           key={linksObject.title}
           title={linksObject.title}
           iconType={linksObject.iconType}
+          iconSize="m"
           isCollapsible={true}
           initialIsOpen={
             linksObject.title ? openGroups.includes(linksObject.title) : true
@@ -195,6 +197,7 @@ export const KibanaNav: FunctionComponent<Props> = ({
           <EuiCollapsibleNavGroup
             background="light"
             iconType="logoWorkplaceSearch"
+            iconSize="l"
             title="Enterprise Search"
             isCollapsible={true}
             initialIsOpen={true}
@@ -223,6 +226,12 @@ export const KibanaNav: FunctionComponent<Props> = ({
         )}
 
         {createNavGroups(KibanaNavLinksLast)}
+
+        <EuiCollapsibleNavGroup>
+          <EuiButton iconType="plusInCircleFilled" fill fullWidth>
+            Add data
+          </EuiButton>
+        </EuiCollapsibleNavGroup>
 
         {/* NO -- Docking button only for larger screens that can support it*/}
         {/* <EuiShowFor sizes={['l', 'xl']}>

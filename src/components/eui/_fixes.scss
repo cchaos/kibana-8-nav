@@ -30,15 +30,19 @@
   padding-bottom: $euiSizeS;
 
   & + & {
-    margin-top: $euiSizeL;
+    margin-top: $euiSizeS;
   }
 }
 
-$euiSideNavEmphasizedBackgroundColor: transparentize($euiColorMediumShade, .88);
+$euiSideNavEmphasizedBackgroundColor: transparentize($euiColorLightShade, .7);
 
 .euiSideNavItem--emphasized {
   background-color: $euiSideNavEmphasizedBackgroundColor;
   box-shadow: 100px 0 0 0 $euiSideNavEmphasizedBackgroundColor, -100px 0 0 0 $euiSideNavEmphasizedBackgroundColor;
+}
+
+.euiSideNavItemButton:disabled .euiIcon--subdued {
+  color: currentColor;
 }
 
 
@@ -52,9 +56,31 @@ $euiSideNavEmphasizedBackgroundColor: transparentize($euiColorMediumShade, .88);
   background-color: transparentize($euiColorPrimary, .9) !important;
 }
 
+.euiResizableButton {
+  z-index: $euiZHeader - 1;
+}
+
 .euiResizableButton:not(:hover):not(:focus) {
   &::before,
   &::after {
     opacity: .25;
   }
+}
+
+.euiPanel.euiPanel--subdued {
+  background-color: $euiSideNavEmphasizedBackgroundColor;
+}
+
+.euiCollapsibleNav {
+  width: $euiPageSidebarMinWidth + ($euiSizeL * 2);
+}
+
+/// HACKS
+.euiOverlayMask--belowHeader {
+  opacity: 0;
+  animation: none;
+}
+
+.euiBody--collapsibleNavIsOpen {
+  overflow: auto;
 }

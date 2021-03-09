@@ -56,13 +56,13 @@ export function SolutionCards({
         <EuiFlexItem>
           <EuiCard
             display="plain"
-            className="euiPanel euiPanel--accent"
+            className="euiPanel euiPanel--primary"
             icon={<EuiIcon size="xl" type="logoObservability" />}
             title="Observability"
             description="Monitor all infrastructure metrics. Track application performance."
             footer={
               <EuiButton
-                color="danger"
+                color="primary"
                 onClick={() => {
                   navigate('observability/overview');
                 }}
@@ -100,13 +100,13 @@ export function SolutionCards({
         <EuiFlexItem>
           <EuiCard
             display="plain"
-            className="euiPanel euiPanel--primary"
+            className="euiPanel euiPanel--accent"
             icon={<EuiIcon size="xl" type="logoKibana" />}
             title="Analytics"
             description="Visualize every aspect of your data. Search and explore your data. Plot your geographic information. Craft pixel-perfect reports."
             footer={
               <EuiButton
-                color="primary"
+                color="danger"
                 onClick={() => {
                   navigate('analytics/overview');
                 }}

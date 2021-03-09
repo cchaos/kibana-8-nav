@@ -28,7 +28,7 @@ export function EuiSuperDatePicker({
       <EuiFlexItem grow={false}>
         <EuiPopover
           // TODO: Now all popover z-indexes can be lowered to below the header
-          zIndex={1}
+          zIndex={999}
           buffer={108}
           anchorPosition="leftCenter"
           button={

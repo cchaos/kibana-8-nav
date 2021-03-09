@@ -65,20 +65,20 @@ export default () => {
   useEffect(() => {
     setKibanaContext.setChrome({
       breadcrumbs,
-      headerLinks,
       pageTitle: `${PAGE_TITLE} Overview`,
     });
   }, [breadcrumbs, headerLinks]);
 
   return (
     <KibanaPage
+      template="empty"
       restrictWidth={true}
       pageHeader={{
         alignItems: 'center',
         pageTitle: PAGE_TITLE,
         iconType: 'logoKibana',
         rightSideItems: [
-          <EuiCallOut size="s" title="New in 7.10!">
+          <EuiCallOut title="New in 7.10!">
             <p>
               Congratulations on upgrading! Want to see all the cool new things?{' '}
               <EuiLink>Take a tour</EuiLink>! Or read the{' '}
@@ -87,6 +87,7 @@ export default () => {
           </EuiCallOut>,
         ],
       }}>
+      <EuiSpacer />
       <EuiPanel
         hasShadow={false}
         color="primary"
