@@ -104,13 +104,13 @@ export default () => {
 
   return (
     <EuiPage
-      style={{ overflow: 'hidden' }}
+      style={{ overflow: 'hidden', flexShrink: 1 }}
       paddingSize="none"
       className="dscPage">
       <EuiPageBody className="dscPageBody">
         <KibanaGlobals />
 
-        <EuiResizableContainer>
+        <EuiResizableContainer style={{ minHeight: 0 }}>
           {(EuiResizablePanel, EuiResizableButton) => (
             <>
               <EuiResizablePanel
@@ -132,32 +132,47 @@ export default () => {
                 paddingSize="none"
                 className="dscPageContent__wrapper">
                 <EuiPageBody>
-                  <EuiPageContent paddingSize="none" className="eui-fullHeight">
-                    <EuiFlexGroup
-                      className="eui-fullHeight"
-                      direction="column"
-                      alignItems="stretch"
-                      gutterSize="none"
-                      responsive={false}>
-                      <EuiFlexItem grow={false}>
-                        <div className="pageScreenshot__TBD">
-                          <img
-                            className="pageScreenshot pageScreenshot--fullWidth"
-                            alt="Discover chart"
-                            src={chartImg}
-                          />
-                        </div>
-                      </EuiFlexItem>
-                      <EuiFlexItem className="eui-yScroll">
-                        <div className="pageScreenshot__TBD">
-                          <img
-                            className="pageScreenshot pageScreenshot--fullWidth"
-                            alt="Discover table"
-                            src={tableImg}
-                          />
-                        </div>
-                      </EuiFlexItem>
-                    </EuiFlexGroup>
+                  <EuiPageContent
+                    borderRadius="none"
+                    paddingSize="none"
+                    className="eui-fullHeight">
+                    <EuiResizableContainer
+                      direction="vertical"
+                      style={{ height: '100%' }}>
+                      {(EuiResizablePanel, EuiResizableButton) => (
+                        <>
+                          <EuiResizablePanel
+                            mode="collapsible"
+                            initialSize={40}>
+                            <div className="pageScreenshot__TBD">
+                              <img
+                                className="pageScreenshot pageScreenshot--fullWidth"
+                                alt="Discover chart"
+                                src={chartImg}
+                              />
+                            </div>
+                          </EuiResizablePanel>
+
+                          <EuiResizableButton />
+
+                          <EuiResizablePanel
+                            mode="main"
+                            initialSize={60}
+                            paddingSize="none"
+                            minSize="50px">
+                            <div className="eui-yScroll">
+                              <div className="pageScreenshot__TBD">
+                                <img
+                                  className="pageScreenshot pageScreenshot--fullWidth"
+                                  alt="Discover table"
+                                  src={tableImg}
+                                />
+                              </div>
+                            </div>
+                          </EuiResizablePanel>
+                        </>
+                      )}
+                    </EuiResizableContainer>
                   </EuiPageContent>
                 </EuiPageBody>
               </EuiResizablePanel>

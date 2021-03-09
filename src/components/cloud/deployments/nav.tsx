@@ -71,7 +71,7 @@ export const CloudDeploymentsNav: any = ({
   }
 
   return (
-    <div style={{ padding: 24 }}>
+    <div className="euiPageSideBar--solutionNav">
       <EuiTitle size="xs">
         <h2>
           <EuiLink color="text" onClick={() => navigate('/cloud/deployments')}>
@@ -82,6 +82,7 @@ export const CloudDeploymentsNav: any = ({
       </EuiTitle>
       <EuiSpacer />
       <EuiSideNav
+        mobileTitle={<>Navigate within $APP_NAME</>}
         toggleOpenOnMobile={toggleOpenOnMobile}
         isOpenOnMobile={isSideNavOpenOnMobile}
         items={sideNav}
