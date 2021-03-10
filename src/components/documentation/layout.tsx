@@ -4,6 +4,7 @@ import React, {
   createContext,
   useState,
 } from 'react';
+import { useHasMounted } from '../hasMounted';
 import { DocsChrome } from './chrome/chrome';
 
 interface DocsChromeContextShape {
@@ -33,6 +34,8 @@ export const DocsChromeContext = createContext<DocsChromeContextShape>({
 const DocsLayout: FunctionComponent<{
   children?: ReactNode;
 }> = ({ children }) => {
+  const hasMounted = useHasMounted();
+
   const [chromeOptions, setChromeOptions] = useState({
     breadcrumbs: [
       {
@@ -44,6 +47,10 @@ const DocsLayout: FunctionComponent<{
     ],
     pageTitle: 'Product Design',
   });
+
+  if (!hasMounted) {
+    return null;
+  }
 
   return (
     <DocsChromeContext.Provider

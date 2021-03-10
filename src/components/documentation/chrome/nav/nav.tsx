@@ -5,14 +5,13 @@
  * See: https://www.gatsbyjs.org/docs/static-query/
  */
 import React, { HTMLAttributes, useState, FunctionComponent } from 'react';
-import _ from 'lodash';
 import { navigate } from 'gatsby';
 
 import {
   IconType,
   EuiFlexItem,
   EuiFlyoutProps,
-  EuiPinnableListGroup,
+  EuiListGroup,
   EuiIcon,
   EuiCollapsibleNavGroup,
   EuiHeaderSectionItemButton,
@@ -49,24 +48,10 @@ export const DocsNav: FunctionComponent<Props> = ({ currentMission }) => {
   const context = React.useContext(ThemeContext);
   const [navIsOpen, setNavIsOpen] = useState(context.navIsDocked);
 
-  const [pinnedItems, setPinnedItems] = useState<
-    EuiPinnableListGroupItemProps[]
-  >(JSON.parse(String(localStorage.getItem('pinnedItems'))) || []);
-
   const [openGroups, setOpenGroups] = useState(
     JSON.parse(String(localStorage.getItem('openNavGroups'))) ||
       DocsNavLinksFirst.map((object) => object.title)
   );
-
-  const addPin = (item: any) => {
-    if (!item || _.find(pinnedItems, { label: item.label })) {
-      return;
-    }
-    item.pinned = true;
-    const newPinnedItems = pinnedItems ? pinnedItems.concat(item) : [item];
-    setPinnedItems(newPinnedItems);
-    localStorage.setItem('pinnedItems', JSON.stringify(newPinnedItems));
-  };
 
   // Save which groups are open and which are not with state and local store
   const toggleAccordion = (isOpen: boolean, title?: string) => {
@@ -86,8 +71,7 @@ export const DocsNav: FunctionComponent<Props> = ({ currentMission }) => {
   };
 
   function alterLinksWithCurrentStateAndLinks(
-    links: ChromNavListItem[],
-    showPinned = false
+    links: ChromNavListItem[]
   ): EuiPinnableListGroupItemProps[] {
     // @ts-ignore
     return links.map((link) => {
@@ -98,7 +82,6 @@ export const DocsNav: FunctionComponent<Props> = ({ currentMission }) => {
           : () => {
               return null;
             },
-        pinned: showPinned ? pinned : false,
         'aria-current': isActive,
         color: isActive ? 'primary' : undefined,
         isActive,
@@ -123,10 +106,9 @@ export const DocsNav: FunctionComponent<Props> = ({ currentMission }) => {
           onToggle={(isOpen: boolean) =>
             toggleAccordion(isOpen, linksObject.title)
           }>
-          <EuiPinnableListGroup
+          <EuiListGroup
             aria-label={linksObject.title} // A11y : EuiCollapsibleNavGroup can't correctly pass the `title` as the `aria-label` to the right HTML element, so it must be added manually
             listItems={alterLinksWithCurrentStateAndLinks(linksObject.links)}
-            onPinClick={addPin}
             maxWidth="none"
             color="subdued"
             gutterSize="none"

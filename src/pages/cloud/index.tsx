@@ -20,7 +20,7 @@ export default () => {
       template="empty"
       restrictWidth={false}
       paddingSize="none">
-      <Link className="pageScreenshot__TBD" to="cloud/deployments">
+      <Link className="pageScreenshot__TBD" to="/cloud/deployments">
         <img
           className="pageScreenshot pageScreenshot--fullWidth"
           alt="Cloud overview"

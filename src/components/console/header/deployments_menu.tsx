@@ -91,7 +91,7 @@ export const ConsoleDeploymentMenu: React.FunctionComponent<ConsoleDeploymentMen
         {(list) => (
           <Fragment>
             <EuiPopoverTitle paddingSize="s">
-              <Link to="cloud">{companyName}</Link>
+              <Link to="/cloud">{companyName}</Link>
             </EuiPopoverTitle>
             {list}
             <EuiPopoverFooter paddingSize="s">

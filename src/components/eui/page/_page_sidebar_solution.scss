@@ -1,0 +1,6 @@
+.euiPageSideBar--solutionNav {
+  padding: $euiSizeL;
+  background:
+    linear-gradient(160deg, $euiSideNavEmphasizedBackgroundColor 0, $euiSideNavEmphasizedBackgroundColor 32px, rgba(#FFF, 0) 0),
+    linear-gradient(175deg, $euiSideNavEmphasizedBackgroundColor 0, $euiSideNavEmphasizedBackgroundColor 16px, rgba(#FFF, 0) 0)
+}

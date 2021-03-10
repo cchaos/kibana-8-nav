@@ -4,6 +4,7 @@ import React, {
   createContext,
   useState,
 } from 'react';
+import { useHasMounted } from '../hasMounted';
 import { KibanaChrome } from './chrome/chrome';
 
 export interface KibanaChromeContextShape {
@@ -31,6 +32,8 @@ export const KibanaChromeContext = createContext<KibanaChromeContextShape>({
 const Layout: FunctionComponent<{
   children?: ReactNode;
 }> = ({ children }) => {
+  const hasMounted = useHasMounted();
+
   const [chromeOptions, setChromeOptions] = useState({
     breadcrumbs: [
       {
@@ -41,6 +44,10 @@ const Layout: FunctionComponent<{
     pageTitle: 'Home',
     saved: false,
   });
+
+  if (!hasMounted) {
+    return null;
+  }
 
   return (
     <KibanaChromeContext.Provider

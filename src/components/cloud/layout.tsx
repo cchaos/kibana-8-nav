@@ -5,6 +5,8 @@ import React, {
   useState,
 } from 'react';
 
+import { useHasMounted } from '../hasMounted';
+
 import { CloudChrome } from './chrome/chrome';
 
 interface CloudChromeContextShape {
@@ -31,6 +33,8 @@ export const CloudChromeContext = createContext<CloudChromeContextShape>({
 const CloudLayout: FunctionComponent<{
   children?: ReactNode;
 }> = ({ children }) => {
+  const hasMounted = useHasMounted();
+
   const [chromeOptions, setChromeOptions] = useState({
     breadcrumbs: [
       {
@@ -39,6 +43,10 @@ const CloudLayout: FunctionComponent<{
     ],
     pageTitle: 'Overview',
   });
+
+  if (!hasMounted) {
+    return null;
+  }
 
   return (
     <CloudChromeContext.Provider

@@ -65,15 +65,13 @@ export const CloudPage: FunctionComponent<CloudPageProps> = ({
   }
 
   return (
-    <>
-      <EuiPageTemplate
-        className={className}
-        pageSideBar={sideNav}
-        pageBodyProps={pageBodyProps}
-        {...rest}>
-        {children}
-        {optionalBottomBar}
-      </EuiPageTemplate>
-    </>
+    <EuiPageTemplate
+      className={className}
+      pageSideBar={sideNav}
+      pageBodyProps={pageBodyProps}
+      {...rest}>
+      {children}
+      {optionalBottomBar}
+    </EuiPageTemplate>
   );
 };

@@ -44,7 +44,7 @@ export default () => (
       </EuiFlexItem>
     </EuiFlexGroup>
     <EuiSpacer />
-    <Link className="pageScreenshot__TBD" to="cloud/deployment">
+    <Link className="pageScreenshot__TBD" to="/cloud/deployment">
       <img
         className="pageScreenshot"
         alt="Deployments list"
