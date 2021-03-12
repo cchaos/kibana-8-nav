@@ -11,6 +11,8 @@ import {
   EuiText,
   EuiTextColor,
   EuiTitle,
+  EuiHideFor,
+  EuiShowFor,
 } from '@elastic/eui';
 
 type Props = {
@@ -72,44 +74,54 @@ export function DocsInPageNav({
     }),
   ];
 
+  const mainNav = (
+    <EuiSideNav
+      mobileTitle="Page navigation"
+      toggleOpenOnMobile={toggleOpenOnMobile}
+      isOpenOnMobile={isSideNavOpenOnMobile}
+      items={sideNav}
+    />
+  );
+
   return (
-    <EuiFlexGroup
-      direction="column"
-      gutterSize="none"
-      style={{ height: '100%' }}>
-      <EuiFlexItem grow={false}>
-        <EuiTitle size="xs">
-          <EuiTextColor color="subdued">
-            <h2>On this page</h2>
-          </EuiTextColor>
-        </EuiTitle>
-      </EuiFlexItem>
-      <EuiFlexItem
-        className="eui-yScrollWithShadows"
-        style={{ overflowX: 'hidden' }}>
-        <div>
-          <EuiSpacer />
-          <EuiSideNav
-            mobileTitle="Navigate within $APP_NAME"
-            toggleOpenOnMobile={toggleOpenOnMobile}
-            isOpenOnMobile={isSideNavOpenOnMobile}
-            items={sideNav}
-          />
-        </div>
-      </EuiFlexItem>
-      <EuiFlexItem grow={false}>
-        <div>
-          <EuiHorizontalRule margin="xs" />
-          <EuiSpacer />
-          <EuiText size="s" color="subdued">
-            <p>No credit card required. Get up and running in 3-minutes!</p>
-          </EuiText>
-          <EuiSpacer size="s" />
-          <EuiButton fill fullWidth>
-            Start a free trial
-          </EuiButton>
-        </div>
-      </EuiFlexItem>
-    </EuiFlexGroup>
+    <>
+      <EuiHideFor sizes={['xs', 's']}>
+        <EuiFlexGroup
+          direction="column"
+          gutterSize="none"
+          responsive={false}
+          style={{ height: '100%' }}>
+          <EuiFlexItem grow={false}>
+            <EuiTitle size="xs">
+              <EuiTextColor color="subdued">
+                <h2>On this page</h2>
+              </EuiTextColor>
+            </EuiTitle>
+          </EuiFlexItem>
+          <EuiFlexItem
+            className="eui-yScrollWithShadows"
+            style={{ overflowX: 'hidden' }}>
+            <div>
+              <EuiSpacer />
+              {mainNav}
+            </div>
+          </EuiFlexItem>
+          <EuiFlexItem grow={false}>
+            <div>
+              <EuiHorizontalRule margin="xs" />
+              <EuiSpacer />
+              <EuiText size="s" color="subdued">
+                <p>No credit card required. Get up and running in 3-minutes!</p>
+              </EuiText>
+              <EuiSpacer size="s" />
+              <EuiButton fill fullWidth>
+                Start a free trial
+              </EuiButton>
+            </div>
+          </EuiFlexItem>
+        </EuiFlexGroup>
+      </EuiHideFor>
+      <EuiShowFor sizes={['xs', 's']}>{mainNav}</EuiShowFor>
+    </>
   );
 }

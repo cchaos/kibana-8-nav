@@ -4,7 +4,7 @@ import React, {
   useContext,
   useEffect,
 } from 'react';
-import { EuiBreadcrumb, EuiHeaderLinks, EuiButton } from '@elastic/eui';
+import { EuiBreadcrumb, EuiHeaderLinks } from '@elastic/eui';
 import { KibanaPage, KibanaPageProps } from '../chrome/page/page';
 import { ObservabilityNav } from './nav';
 import { navigate } from 'gatsby';
@@ -40,12 +40,7 @@ export const ObservabilityPage: FunctionComponent<ObservabilityPage> = ({
   }
 
   const theHeaderLinks: ReactNode = (
-    <EuiHeaderLinks>
-      {headerLinks}
-      <EuiButton iconType="plusInCircle" minWidth={0} size="s">
-        Add data
-      </EuiButton>
-    </EuiHeaderLinks>
+    <EuiHeaderLinks>{headerLinks}</EuiHeaderLinks>
   );
 
   const setKibanaContext = useContext(KibanaChromeContext);

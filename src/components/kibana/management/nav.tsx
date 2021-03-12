@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { navigate } from 'gatsby';
 
-import { EuiIcon, EuiSideNav, EuiSpacer, EuiTitle } from '@elastic/eui';
+import { EuiIcon, EuiLink, EuiSideNav, EuiTitle } from '@elastic/eui';
 
 type Props = {
   currentItem?: string;
@@ -81,19 +81,26 @@ export const KibanaManagementNav: any = ({
   ];
 
   return (
-    <>
-      <EuiTitle size="xs">
+    <div className="euiSolutionNav">
+      <EuiTitle className="euiSolutionNav__title" size="xs">
         <h2>
-          <EuiIcon size="l" type="managementApp" /> &ensp; Management
+          <EuiLink color="text" onClick={() => navigate('/management/stack')}>
+            <EuiIcon
+              className="euiSolutionNav__titleIcon"
+              size="l"
+              type="managementApp"
+            />
+            <strong>Management</strong>
+          </EuiLink>
         </h2>
       </EuiTitle>
-      <EuiSpacer />
       <EuiSideNav
-        mobileTitle="Navigate within $APP_NAME"
+        className="euiSolutionNav__sideNav"
+        mobileTitle={'MENU'}
         toggleOpenOnMobile={toggleOpenOnMobile}
         isOpenOnMobile={isSideNavOpenOnMobile}
         items={sideNav}
       />
-    </>
+    </div>
   );
 };

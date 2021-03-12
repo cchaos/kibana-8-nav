@@ -9,147 +9,166 @@ import {
   EuiPageSideBar,
   EuiPage,
   EuiPageBody,
+  useIsWithinBreakpoints,
 } from '@elastic/eui';
-
-import { EuiSticky } from '../../components/eui';
 
 import { DocsInPageNav } from '../../components/documentation/chrome/nav';
 
-export default () => (
-  <EuiPage grow={true} restrictWidth={1248}>
-    <EuiPageBody>
-      <EuiPageContent className="euiPageContent--restrictWidth">
-        <EuiPageContentBody>
-          <EuiText>
-            <h1>This is Heading One</h1>
-            <p>
-              Far out in the uncharted backwaters of the <a>unfashionable</a>{' '}
-              end of the western spiral arm of the Galaxy lies a small
-              unregarded yellow sun. When suddenly some wild JavaScript code
-              appeared! <code>const whoa = &quot;!&quot;</code>
-            </p>
+export default () => {
+  const isMobile = useIsWithinBreakpoints(['xs', 's']);
 
-            <pre>
-              <code>
-                const completelyUnexpected = &quot;the audacity!&quot;;
-              </code>
-            </pre>
-
-            <p>That was close.</p>
-
-            <blockquote>
+  return (
+    <EuiPage
+      paddingSize={isMobile ? 'none' : 'm'}
+      restrictWidth={1248}
+      style={{ flexDirection: isMobile ? undefined : 'row-reverse' }}>
+      <EuiPageSideBar
+        sticky
+        style={
+          isMobile
+            ? undefined
+            : {
+                maxHeight: `calc(100vh - ${96 + 32}px)`,
+                top: `${96 + 16}px`,
+                marginRight: 0,
+                minWidth: 240,
+              }
+        }>
+        <div
+          style={
+            isMobile
+              ? undefined
+              : { height: '100%', paddingLeft: 24, paddingRight: 24 }
+          }>
+          <DocsInPageNav />
+        </div>
+      </EuiPageSideBar>
+      <EuiPageBody>
+        <EuiPageContent
+          borderRadius={isMobile ? 'none' : 'm'}
+          className="euiPageContent--restrictWidth">
+          <EuiPageContentBody>
+            <EuiText>
+              <h1>This is Heading One</h1>
               <p>
-                I&apos;ve seen things you people wouldn&apos;t believe. Attack
-                ships on fire off the shoulder of Orion. I watched C-beams
-                glitter in the dark near the Tannhäuser Gate. All those moments
-                will be lost in time, like tears in rain. Time to die.
+                Far out in the uncharted backwaters of the <a>unfashionable</a>{' '}
+                end of the western spiral arm of the Galaxy lies a small
+                unregarded yellow sun. When suddenly some wild JavaScript code
+                appeared! <code>const whoa = &quot;!&quot;</code>
               </p>
-            </blockquote>
 
-            <p>
-              Orbiting this at a distance of roughly ninety-two million miles is
-              an utterly insignificant little blue green planet whose ape-
-              descended life forms are so amazingly primitive that they still
-              think digital watches are a pretty neat idea.
-            </p>
+              <pre>
+                <code>
+                  const completelyUnexpected = &quot;the audacity!&quot;;
+                </code>
+              </pre>
 
-            <ul>
-              <li>List item one</li>
-              <li>List item two</li>
-              <li>Dolphins</li>
-            </ul>
+              <p>That was close.</p>
 
-            <p>
-              This planet has - or rather had - a problem, which was this: most
-              of the people living on it were unhappy for pretty much of the
-              time. Many solutions were suggested for this problem, but most of
-              these were largely concerned with the movements of small green
-              pieces of paper, which is odd because on the whole it was not the
-              small green pieces of paper that were unhappy.
-            </p>
+              <blockquote>
+                <p>
+                  I&apos;ve seen things you people wouldn&apos;t believe. Attack
+                  ships on fire off the shoulder of Orion. I watched C-beams
+                  glitter in the dark near the Tannhäuser Gate. All those
+                  moments will be lost in time, like tears in rain. Time to die.
+                </p>
+              </blockquote>
 
-            <h2>This is Heading Two</h2>
+              <p>
+                Orbiting this at a distance of roughly ninety-two million miles
+                is an utterly insignificant little blue green planet whose ape-
+                descended life forms are so amazingly primitive that they still
+                think digital watches are a pretty neat idea.
+              </p>
 
-            <ol>
-              <li>Number one</li>
-              <li>Number two</li>
-              <li>Dolphins again</li>
-            </ol>
+              <ul>
+                <li>List item one</li>
+                <li>List item two</li>
+                <li>Dolphins</li>
+              </ul>
 
-            <p>
-              But the dog wasn&rsquo;t lazy, it was just practicing mindfulness,
-              so it had a greater sense of life-satisfaction than that fox with
-              all its silly jumping.
-            </p>
+              <p>
+                This planet has - or rather had - a problem, which was this:
+                most of the people living on it were unhappy for pretty much of
+                the time. Many solutions were suggested for this problem, but
+                most of these were largely concerned with the movements of small
+                green pieces of paper, which is odd because on the whole it was
+                not the small green pieces of paper that were unhappy.
+              </p>
 
-            <p>
-              And from the fox&rsquo;s perspective, life was full of hoops to
-              jump <em>through</em>, low-hanging fruit to jump <em>for</em>, and
-              dead car batteries to jump-<em>start</em>.
-            </p>
+              <h2>This is Heading Two</h2>
 
-            <h3>This is Heading Three</h3>
+              <ol>
+                <li>Number one</li>
+                <li>Number two</li>
+                <li>Dolphins again</li>
+              </ol>
 
-            <p>
-              So it thought the dog was making a poor life choice by focusing so
-              much on mindfulness. What if its car broke down?
-            </p>
+              <p>
+                But the dog wasn&rsquo;t lazy, it was just practicing
+                mindfulness, so it had a greater sense of life-satisfaction than
+                that fox with all its silly jumping.
+              </p>
 
-            <h4>This is Heading Four</h4>
+              <p>
+                And from the fox&rsquo;s perspective, life was full of hoops to
+                jump <em>through</em>, low-hanging fruit to jump <em>for</em>,
+                and dead car batteries to jump-<em>start</em>.
+              </p>
 
-            <p>
-              So it thought the dog was making a poor life choice by focusing so
-              much on mindfulness. What if its car broke down?
-            </p>
+              <h3>This is Heading Three</h3>
 
-            <h5>This is Heading Five</h5>
-
-            <p>
-              <small>
+              <p>
                 So it thought the dog was making a poor life choice by focusing
                 so much on mindfulness. What if its car broke down?
-              </small>
-            </p>
+              </p>
 
-            <h6>This is Heading Six</h6>
+              <h4>This is Heading Four</h4>
 
-            <EuiHorizontalRule />
+              <p>
+                So it thought the dog was making a poor life choice by focusing
+                so much on mindfulness. What if its car broke down?
+              </p>
 
-            <dl>
-              <dt>The Elder Scrolls: Morrowind</dt>
-              <dd>The opening music alone evokes such strong memories.</dd>
-              <dt>TIE Fighter</dt>
-              <dd>
-                The sequel to XWING, join the dark side and fly for the Emporer.
-              </dd>
-              <dt>Quake 2</dt>
-              <dd>The game that made me drop out of college.</dd>
-            </dl>
+              <h5>This is Heading Five</h5>
 
-            <EuiHorizontalRule />
+              <p>
+                <small>
+                  So it thought the dog was making a poor life choice by
+                  focusing so much on mindfulness. What if its car broke down?
+                </small>
+              </p>
 
-            <dl className="eui-definitionListReverse">
-              <dt>Name</dt>
-              <dd>The Elder Scrolls: Morrowind</dd>
-              <dt>Game style</dt>
-              <dd>Open-world, fantasy, action role-playing</dd>
-              <dt>Release date</dt>
-              <dd>2002</dd>
-            </dl>
-          </EuiText>
-        </EuiPageContentBody>
-      </EuiPageContent>
-    </EuiPageBody>
-    <EuiSticky
-      top={96 + 16}
-      style={{
-        display: 'flex',
-        maxHeight: `calc(100vh - ${96 + 32}px)`,
-        marginBottom: -16,
-      }}>
-      <EuiPageSideBar style={{ flexGrow: 1, padding: 24 }}>
-        <DocsInPageNav />
-      </EuiPageSideBar>
-    </EuiSticky>
-  </EuiPage>
-);
+              <h6>This is Heading Six</h6>
+
+              <EuiHorizontalRule />
+
+              <dl>
+                <dt>The Elder Scrolls: Morrowind</dt>
+                <dd>The opening music alone evokes such strong memories.</dd>
+                <dt>TIE Fighter</dt>
+                <dd>
+                  The sequel to XWING, join the dark side and fly for the
+                  Emporer.
+                </dd>
+                <dt>Quake 2</dt>
+                <dd>The game that made me drop out of college.</dd>
+              </dl>
+
+              <EuiHorizontalRule />
+
+              <dl className="eui-definitionListReverse">
+                <dt>Name</dt>
+                <dd>The Elder Scrolls: Morrowind</dd>
+                <dt>Game style</dt>
+                <dd>Open-world, fantasy, action role-playing</dd>
+                <dt>Release date</dt>
+                <dd>2002</dd>
+              </dl>
+            </EuiText>
+          </EuiPageContentBody>
+        </EuiPageContent>
+      </EuiPageBody>
+    </EuiPage>
+  );
+};

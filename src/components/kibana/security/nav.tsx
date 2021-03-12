@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import { navigate } from 'gatsby';
 
-import { EuiIcon, EuiSideNav, EuiSpacer, EuiTitle } from '@elastic/eui';
+import {
+  EuiIcon,
+  EuiLink,
+  EuiSideNav,
+  EuiSpacer,
+  EuiTitle,
+} from '@elastic/eui';
 
 type Props = {
   navItem?: string;
@@ -66,19 +72,26 @@ export function SecurityNav({ navItem }: Props) {
   ];
 
   return (
-    <>
-      <EuiTitle size="xs">
+    <div className="euiSolutionNav">
+      <EuiTitle className="euiSolutionNav__title" size="xs">
         <h2>
-          <EuiIcon size="l" type="logoSecurity" /> &ensp; Security
+          <EuiLink color="text" onClick={() => navigate('/security/overview')}>
+            <EuiIcon
+              className="euiSolutionNav__titleIcon"
+              size="l"
+              type="logoSecurity"
+            />
+            <strong>Security</strong>
+          </EuiLink>
         </h2>
       </EuiTitle>
-      <EuiSpacer />
       <EuiSideNav
-        mobileTitle="Navigate within security"
+        className="euiSolutionNav__sideNav"
+        mobileTitle={'MENU'}
         toggleOpenOnMobile={toggleOpenOnMobile}
         isOpenOnMobile={isSideNavOpenOnMobile}
         items={sideNav}
       />
-    </>
+    </div>
   );
 }

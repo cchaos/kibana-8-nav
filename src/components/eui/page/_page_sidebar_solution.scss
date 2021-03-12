@@ -1,6 +1,32 @@
-.euiPageSideBar--solutionNav {
+.euiSolutionNav {
   padding: $euiSizeL;
   background:
     linear-gradient(160deg, $euiSideNavEmphasizedBackgroundColor 0, $euiSideNavEmphasizedBackgroundColor 32px, rgba(#FFF, 0) 0),
-    linear-gradient(175deg, $euiSideNavEmphasizedBackgroundColor 0, $euiSideNavEmphasizedBackgroundColor 16px, rgba(#FFF, 0) 0)
+    linear-gradient(175deg, $euiSideNavEmphasizedBackgroundColor 0, $euiSideNavEmphasizedBackgroundColor 16px, rgba(#FFF, 0) 0);
+
+  @include euiBreakpoint('xs', 's') {
+    padding: 0;
+
+    .euiSolutionNav__title {
+      padding: $euiSize $euiSizeL;
+    }
+
+    .euiSolutionNav__sideNav [class*='mobileToggle'] {
+      border-bottom: none;
+    }
+
+    .euiSolutionNav__sideNav[class*='isOpenMobile'] .euiSideNav__content {
+      margin: 0;
+      // Changing this to padding keeps the emphasized bg extended
+      padding: $euiSize $euiSizeL;
+    }
+  }
+}
+
+.euiSolutionNav__title {
+  padding-bottom: $euiSizeL;
+}
+
+.euiSolutionNav__titleIcon {
+  margin-right: $euiSize;
 }

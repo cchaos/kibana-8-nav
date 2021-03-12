@@ -34,6 +34,7 @@ export default () => (
     pageHeader={{
       pageTitle: (
         <EuiFlexGroup
+          responsive={false}
           alignItems="flexStart"
           direction="column"
           component="span"

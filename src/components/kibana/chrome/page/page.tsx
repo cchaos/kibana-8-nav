@@ -51,9 +51,7 @@ export const KibanaPage: FunctionComponent<KibanaPageProps> = ({
     pageHeader.time = undefined;
   }
 
-  const optionalSideBar = solutionNav ? (
-    <div style={{ padding: 24 }}>{solutionNav}</div>
-  ) : undefined;
+  const optionalSideBar = solutionNav;
 
   const optionalGlobals = globals && <KibanaGlobals />;
 

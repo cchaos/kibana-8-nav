@@ -46,7 +46,7 @@ export default () => (
     <EuiSpacer />
     <Link className="pageScreenshot__TBD" to="/cloud/deployment">
       <img
-        className="pageScreenshot"
+        className="pageScreenshot pageScreenshot--responsive"
         alt="Deployments list"
         width={678}
         src={listImg}

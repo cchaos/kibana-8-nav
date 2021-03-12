@@ -5,6 +5,7 @@ import {
   EuiHeader,
   EuiButtonIcon,
   EuiHeaderSectionItem,
+  useIsWithinBreakpoints,
 } from '@elastic/eui';
 import { ConsoleHelpMenu } from './help_menu';
 import { navigate } from 'gatsby';
@@ -25,6 +26,8 @@ export type ConsoleHeaderProps = Omit<
 export const ConsoleHeader: React.FunctionComponent<ConsoleHeaderProps> = ({
   inDeployment,
 }) => {
+  const isMobile = useIsWithinBreakpoints(['xs', 's']);
+
   function renderLogo() {
     return (
       <EuiHeaderLogo
@@ -52,11 +55,12 @@ export const ConsoleHeader: React.FunctionComponent<ConsoleHeaderProps> = ({
           borders: 'none',
         },
         {
-          items: [<KibanaChromeSearch />],
+          items: [!isMobile && <KibanaChromeSearch />],
           borders: 'none',
         },
         {
           items: [
+            isMobile && <KibanaChromeSearch />,
             <ConsoleHelpMenu />,
             <ConsoleUpdates />,
             <ConsoleUserMenu {...CloudUser} />,

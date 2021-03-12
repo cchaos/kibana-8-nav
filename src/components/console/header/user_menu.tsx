@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import React, { useState } from 'react';
 
 import {
@@ -83,7 +84,7 @@ export const ConsoleUserMenu: React.FunctionComponent<Props> = ({
 
           <EuiSpacer size="m" />
 
-          <ConsoleThemeButton />
+          {location.host.includes('800') && <ConsoleThemeButton />}
         </EuiFlexItem>
       </EuiFlexGroup>
     </EuiPopover>

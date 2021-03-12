@@ -84,3 +84,7 @@ $euiSideNavEmphasizedBackgroundColor: transparentize($euiColorLightShade, .7);
 .euiBody--collapsibleNavIsOpen {
   overflow: auto;
 }
+
+.euiBody--collapsibleNavIsDocked {
+  padding-left: $euiPageSidebarMinWidth + ($euiSizeL * 2) !important;
+}

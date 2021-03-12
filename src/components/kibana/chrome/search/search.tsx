@@ -6,7 +6,8 @@ import {
   EuiFlexGroup,
   EuiFlexItem,
   EuiLink,
-  EuiButton,
+  EuiHeaderSectionItemButton,
+  EuiIcon,
 } from '@elastic/eui';
 import { navigate } from 'gatsby';
 import React, { useState, useEffect } from 'react';
@@ -103,7 +104,11 @@ export const KibanaChromeSearch = () => {
       popoverProps={{
         className: 'customPopoverClass',
       }}
-      popoverButton={<EuiButton>Mobile toggle</EuiButton>}
+      popoverButton={
+        <EuiHeaderSectionItemButton aria-label="Sitewide search">
+          <EuiIcon type="search" size="m" />
+        </EuiHeaderSectionItemButton>
+      }
       popoverButtonBreakpoints={['xs', 's']}
       popoverFooter={
         <EuiText color="subdued" size="xs">
