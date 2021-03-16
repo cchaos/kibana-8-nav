@@ -2,8 +2,9 @@ import React, { ReactNode } from 'react';
 import { Helmet } from 'react-helmet';
 
 import { CommonProps } from '@elastic/eui';
-import { CloudHeader, CloudHeaderProps } from './header';
+import { CloudHeaderProps, cloudHeaderSections } from './header';
 import { EuiPageLayout } from '../../eui/page/page_layout';
+import { consoleHeaderSections } from '../../console/header/header';
 
 export interface CloudChrome extends CloudHeaderProps, CommonProps {
   pageTitle?: string;
@@ -19,12 +20,18 @@ export const CloudChrome: React.FunctionComponent<CloudChromeProps> = ({
   breadcrumbs,
 }) => {
   return (
-    <EuiPageLayout numberOfStickyHeaders={2}>
+    <EuiPageLayout
+      headers={[
+        {
+          sections: consoleHeaderSections(false),
+          theme: 'dark',
+          position: 'sticky',
+        },
+        { sections: cloudHeaderSections(breadcrumbs), position: 'sticky' },
+      ]}>
       <Helmet>
         <title>{pageTitle} | Cloud 8 Prototype</title>
       </Helmet>
-
-      <CloudHeader breadcrumbs={breadcrumbs} />
 
       {children}
     </EuiPageLayout>

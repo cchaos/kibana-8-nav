@@ -6,6 +6,7 @@ import {
   EuiButtonIcon,
   EuiHeaderSectionItem,
   useIsWithinBreakpoints,
+  EuiHeaderProps,
 } from '@elastic/eui';
 import { ConsoleHelpMenu } from './help_menu';
 import { navigate } from 'gatsby';
@@ -23,9 +24,9 @@ export type ConsoleHeaderProps = Omit<
   'companyName'
 >;
 
-export const ConsoleHeader: React.FunctionComponent<ConsoleHeaderProps> = ({
-  inDeployment,
-}) => {
+export const consoleHeaderSections = (
+  inDeployment: ConsoleHeaderProps['inDeployment'] = false
+): EuiHeaderProps['sections'] => {
   const isMobile = useIsWithinBreakpoints(['xs', 's']);
 
   function renderLogo() {
@@ -40,43 +41,48 @@ export const ConsoleHeader: React.FunctionComponent<ConsoleHeaderProps> = ({
     );
   }
 
+  const sections: EuiHeaderProps['sections'] = [
+    {
+      items: [
+        renderLogo(),
+        <ConsoleDeploymentMenu
+          companyName={CloudCompany}
+          inDeployment={inDeployment}
+        />,
+      ],
+      borders: 'none',
+    },
+    {
+      items: [!isMobile && <KibanaChromeSearch />],
+      borders: 'none',
+    },
+    {
+      items: [
+        isMobile && <KibanaChromeSearch />,
+        <ConsoleHelpMenu />,
+        <ConsoleUpdates />,
+        <ConsoleUserMenu {...CloudUser} />,
+        <EuiHeaderSectionItem>
+          <EuiButtonIcon
+            aria-label="Add data"
+            iconType="plusInCircleFilled"
+            display="base"
+            size="s"
+            color="ghost"
+          />
+        </EuiHeaderSectionItem>,
+      ],
+      borders: 'none',
+    },
+  ];
+
+  return sections;
+};
+
+export const ConsoleHeader: React.FunctionComponent<ConsoleHeaderProps> = ({
+  inDeployment,
+}) => {
   return (
-    <EuiHeader
-      theme="dark"
-      sections={[
-        {
-          items: [
-            renderLogo(),
-            <ConsoleDeploymentMenu
-              companyName={CloudCompany}
-              inDeployment={inDeployment}
-            />,
-          ],
-          borders: 'none',
-        },
-        {
-          items: [!isMobile && <KibanaChromeSearch />],
-          borders: 'none',
-        },
-        {
-          items: [
-            isMobile && <KibanaChromeSearch />,
-            <ConsoleHelpMenu />,
-            <ConsoleUpdates />,
-            <ConsoleUserMenu {...CloudUser} />,
-            <EuiHeaderSectionItem>
-              <EuiButtonIcon
-                aria-label="Add data"
-                iconType="plusInCircleFilled"
-                display="base"
-                size="s"
-                color="ghost"
-              />
-            </EuiHeaderSectionItem>,
-          ],
-          borders: 'none',
-        },
-      ]}
-    />
+    <EuiHeader theme="dark" sections={consoleHeaderSections(inDeployment)} />
   );
 };

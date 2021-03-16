@@ -6,20 +6,18 @@ import {
   EuiBadge,
   EuiHeader,
   EuiHeaderLogo,
+  EuiHeaderProps,
 } from '@elastic/eui';
 
-import { EuiSticky } from '../../eui';
-
-import { ConsoleHeader } from '../../console/header/header';
 import { CloudNav } from './nav';
 
 export type CloudHeaderProps = {
   breadcrumbs?: EuiBreadcrumb[];
 };
 
-export const CloudHeader: React.FunctionComponent<CloudHeaderProps> = ({
-  breadcrumbs,
-}) => {
+export const cloudHeaderSections = (
+  breadcrumbs: CloudHeaderProps['breadcrumbs']
+): EuiHeaderProps['sections'] => {
   const CloudLogo = (
     <EuiHeaderLogo
       iconType="logoCloud"
@@ -29,29 +27,27 @@ export const CloudHeader: React.FunctionComponent<CloudHeaderProps> = ({
     />
   );
 
-  return (
-    <EuiSticky zIndex={1000} id="cloudHeader">
-      <ConsoleHeader />
-      <EuiHeader
-        sections={[
-          {
-            items: [
-              <CloudNav
-                currentRoute={
-                  breadcrumbs ? String(breadcrumbs[0].text) : 'Cloud'
-                }
-              />,
-              CloudLogo,
-            ],
-            borders: 'none',
-            breadcrumbs,
-          },
-          {
-            borders: 'none',
-            items: [<EuiBadge>Version 8.0</EuiBadge>],
-          },
-        ]}
-      />
-    </EuiSticky>
-  );
+  const sections: EuiHeaderProps['sections'] = [
+    {
+      items: [
+        <CloudNav
+          currentRoute={breadcrumbs ? String(breadcrumbs[0].text) : 'Cloud'}
+        />,
+        CloudLogo,
+      ],
+      borders: 'none',
+      breadcrumbs,
+    },
+    {
+      borders: 'none',
+      items: [<EuiBadge>Version 8.0</EuiBadge>],
+    },
+  ];
+  return sections;
+};
+
+export const CloudHeader: React.FunctionComponent<CloudHeaderProps> = ({
+  breadcrumbs,
+}) => {
+  return <EuiHeader sections={cloudHeaderSections(breadcrumbs)} />;
 };

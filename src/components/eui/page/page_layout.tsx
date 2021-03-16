@@ -1,22 +1,17 @@
 import React, { FunctionComponent, HTMLAttributes, useEffect } from 'react';
 import classNames from 'classnames';
 
-import { CommonProps } from '@elastic/eui';
+import { CommonProps, EuiHeader, EuiHeaderProps } from '@elastic/eui';
 
 export const NUMBER_OF_FIXED_HEADERS = [1, 2, 3] as const;
 
+export type EuiHeaderPropsExtended = Omit<EuiHeaderProps, 'position'> & {
+  position?: 'static' | 'fixed' | 'sticky';
+};
+
 export type EuiPageLayoutProps = CommonProps &
   HTMLAttributes<HTMLDivElement> & {
-    /**
-     * Helper that adjusts the layout based on the number of fixed headers.
-     * Adds body classes.
-     */
-    numberOfFixedHeaders?: typeof NUMBER_OF_FIXED_HEADERS[number];
-    /**
-     * Helper that adjusts the layout based on the number of sticky headers.
-     * Adds body classes.
-     */
-    numberOfStickyHeaders?: typeof NUMBER_OF_FIXED_HEADERS[number];
+    headers?: EuiHeaderPropsExtended[];
     /**
      * Stretches the page content but doesn't extend past the window height.
      * This means you must add scroll ability somewhere in your content.
@@ -28,50 +23,63 @@ export type EuiPageLayoutProps = CommonProps &
 export const EuiPageLayout: FunctionComponent<EuiPageLayoutProps> = ({
   className,
   children,
-  numberOfFixedHeaders,
-  numberOfStickyHeaders,
   fullHeight,
+  headers,
   ...rest
 }) => {
   useEffect(() => {
-    if (numberOfFixedHeaders) {
+    if (headers?.length) {
+      const numberOfFixedHeaders = headers.reduce(function (num, header) {
+        if (header.position === 'fixed') {
+          num += 1;
+        }
+        return num;
+      }, 0);
+
+      const numberOfStickyHeaders = headers.reduce(function (num, header) {
+        if (header.position === 'sticky') {
+          num += 1;
+        }
+        return num;
+      }, 0);
+
       document.body.classList.add(
-        `euiBody--${numberOfFixedHeaders}FixedHeaders`
+        classNames({
+          [`euiBody--${numberOfFixedHeaders}FixedHeaders`]: numberOfFixedHeaders,
+          [`euiBody--${numberOfStickyHeaders}StickyHeaders`]: numberOfStickyHeaders,
+        })
       );
 
       return () => {
         // Remove the class
         document.body.classList.remove(
-          `euiBody--${numberOfFixedHeaders}FixedHeaders`
-        );
-      };
-    }
-
-    if (numberOfStickyHeaders) {
-      document.body.classList.add(
-        `euiBody--${numberOfStickyHeaders}StickyHeaders`
-      );
-
-      return () => {
-        // Remove the class
-        document.body.classList.remove(
+          `euiBody--${numberOfFixedHeaders}FixedHeaders`,
           `euiBody--${numberOfStickyHeaders}StickyHeaders`
         );
       };
     }
-  }, [numberOfFixedHeaders, numberOfStickyHeaders]);
+  }, [headers]);
 
   const classes = classNames(
     'euiPageLayout',
     {
       'euiPageLayout--fullHeight': fullHeight,
-      [`euiPageLayout--${numberOfFixedHeaders}FixedHeaders`]: numberOfFixedHeaders,
+      // [`euiPageLayout--${numberOfFixedHeaders}FixedHeaders`]: numberOfFixedHeaders,
     },
     className
   );
 
+  let headerNodes;
+  if (headers?.length) {
+    headerNodes = headers.map((header, index) => (
+      // @ts-ignore Add `sticky`
+      <EuiHeader role="banner" key={index} {...header} />
+    ));
+  }
+
   return (
     <div className={classes} {...rest}>
+      {headerNodes}
       {children}
     </div>
   );

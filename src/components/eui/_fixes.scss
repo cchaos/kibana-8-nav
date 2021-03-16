@@ -88,3 +88,12 @@ $euiSideNavEmphasizedBackgroundColor: transparentize($euiColorLightShade, .7);
 .euiBody--collapsibleNavIsDocked {
   padding-left: $euiPageSidebarMinWidth + ($euiSizeL * 2) !important;
 }
+
+.euiHeader--sticky {
+  position: sticky;
+  top: 0;
+
+  & + .euiHeader--sticky {
+    top: $euiHeaderHeightCompensation;
+  }
+}
