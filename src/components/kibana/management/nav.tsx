@@ -57,15 +57,6 @@ export const KibanaManagementNav: any = ({
         createItem('Role Mappings'),
       ],
     }),
-    createItem('Fleet', {
-      disabled: false,
-      items: [
-        createItem('Agents', { url: 'management/agents' }),
-        createItem('Integrations', { url: 'management/ingest' }),
-        // createItem('Fleet'),
-        // createItem('Datasets'),
-      ],
-    }),
     createItem('Elasticsearch', {
       disabled: false,
       items: [

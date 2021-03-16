@@ -110,7 +110,10 @@ export const KibanaNav: FunctionComponent<Props> = ({
       const { url, onClick, pinned, isActive, href, ...rest } = link;
       return {
         onClick: url
-          ? () => navigate(url)
+          ? () => {
+              navigate(url);
+              setNavIsOpen(false);
+            }
           : () => {
               return null;
             },
@@ -227,12 +230,6 @@ export const KibanaNav: FunctionComponent<Props> = ({
 
         {createNavGroups(KibanaNavLinksLast)}
 
-        <EuiCollapsibleNavGroup>
-          <EuiButton iconType="plusInCircleFilled" fill fullWidth>
-            Add data
-          </EuiButton>
-        </EuiCollapsibleNavGroup>
-
         {/* NO -- Docking button only for larger screens that can support it*/}
         {/* <EuiShowFor sizes={['l', 'xl']}>
           <EuiCollapsibleNavGroup>
@@ -247,6 +244,25 @@ export const KibanaNav: FunctionComponent<Props> = ({
             />
           </EuiCollapsibleNavGroup>
         </EuiShowFor> */}
+
+        <EuiHorizontalRule margin="none" />
+      </EuiFlexItem>
+
+      <EuiHorizontalRule margin="none" />
+
+      <EuiFlexItem grow={false}>
+        <EuiCollapsibleNavGroup>
+          <EuiButton
+            onClick={() => {
+              navigate('management/agents');
+              setNavIsOpen(false);
+            }}
+            iconType="plusInCircleFilled"
+            fill
+            fullWidth>
+            Add data
+          </EuiButton>
+        </EuiCollapsibleNavGroup>
       </EuiFlexItem>
     </EuiCollapsibleNav>
   );

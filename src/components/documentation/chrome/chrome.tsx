@@ -19,7 +19,7 @@ export const DocsChrome: React.FunctionComponent<DocsChromeProps> = ({
   breadcrumbs,
 }) => {
   return (
-    <EuiPageLayout numberOfFixedHeaders={2}>
+    <EuiPageLayout>
       <Helmet>
         <title>{pageTitle} | Docs Prototype</title>
       </Helmet>

@@ -67,15 +67,6 @@ export function KibanaSolutionNav({ currentUrl = 'management/stack' }: Props) {
         createItem('8.0 Upgrade Assistant'),
       ],
     }),
-    createItem('Fleet', {
-      url: 'management/agents',
-      // items: [
-      //   createItem('Integrations'),
-      //   createItem('Configuration'),
-      //   createItem('Fleet'),
-      //   createItem('Datasets'),
-      // ],
-    }),
   ];
 
   return (

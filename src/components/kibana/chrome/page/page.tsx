@@ -52,25 +52,30 @@ export const KibanaPage: FunctionComponent<KibanaPageProps> = ({
   }
 
   const optionalSideBar = solutionNav;
-
   const optionalGlobals = globals && <KibanaGlobals />;
-
-  const resizeRef = useRef();
-  const dimensions = useResizeObserver(resizeRef.current || null);
 
   let optionalBottomBar;
   if (bottomBar) {
+    const resizeRef = useRef<HTMLDivElement | null>(null);
+
     optionalBottomBar = (
       <div
         ref={resizeRef}
         className="euiBottomBar euiBottomBar--paddingSmall"
-        style={{ left: isMobile || !solutionNav ? 0 : 240 }}>
+        style={{
+          position: globals ? 'sticky' : 'fixed',
+          bottom: 0,
+          top: globals ? 0 : undefined,
+          left: isMobile || !solutionNav ? 0 : 240,
+        }}>
         {bottomBar}
       </div>
     );
 
+    const dimensions = useResizeObserver(resizeRef.current);
+
     pageContentProps.style = {
-      paddingBottom: dimensions.height + 24,
+      paddingBottom: globals ? undefined : dimensions.height,
       ...pageContentProps.style,
     };
   }
@@ -122,20 +127,24 @@ export const KibanaPage: FunctionComponent<KibanaPageProps> = ({
 
             <EuiPageBody panelled paddingSize="none" restrictWidth={false}>
               {optionalGlobals}
-              <EuiPageHeader restrictWidth={restrictWidth} {...pageHeader} />
+              <EuiPageHeader
+                restrictWidth={restrictWidth}
+                paddingSize="l"
+                {...pageHeader}
+              />
 
               <EuiPageContent
                 {...pageContentProps}
                 hasBorder={false}
                 hasShadow={false}
-                paddingSize="none"
+                paddingSize="l"
                 color="transparent"
                 borderRadius="none">
                 <EuiPageContentBody restrictWidth={restrictWidth}>
                   {children}
-                  {optionalBottomBar}
                 </EuiPageContentBody>
               </EuiPageContent>
+              {optionalBottomBar}
             </EuiPageBody>
           </EuiPage>
         );

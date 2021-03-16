@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useContext, useEffect } from 'react';
 
 import {
   EuiBreadcrumb,
@@ -13,13 +13,20 @@ import {
   EuiFilterGroup,
   EuiFlexGroup,
   EuiStat,
+  EuiBetaBadge,
 } from '@elastic/eui';
 
-import { ManagementPage } from '../../components/kibana/management/page';
+import { KibanaPage } from '../../components/kibana/chrome/page/page';
+import { KibanaChromeContext } from '../../components/kibana/layout';
+
 // @ts-ignore
 import tableImg from '../../images/Agents - table.png';
 
 const breadcrumbs: EuiBreadcrumb[] = [
+  {
+    text: 'Fleet',
+    href: '#',
+  },
   {
     text: 'Agents',
   },
@@ -36,28 +43,32 @@ const headerLinks: ReactNode = (
 );
 
 export default () => {
+  const setKibanaContext = useContext(KibanaChromeContext);
+
+  useEffect(() => {
+    setKibanaContext.setChrome({
+      breadcrumbs,
+      pageTitle: 'Dev tools | Console',
+      headerLinks: headerLinks,
+    });
+  }, [breadcrumbs, headerLinks]);
+
   return (
-    <ManagementPage
-      pageTitle="Agents"
-      sideNavItem="Agents"
-      headerLinks={headerLinks}
-      breadcrumbs={breadcrumbs}
+    <KibanaPage
       pageHeader={{
+        pageTitle: (
+          <>
+            Fleet <EuiBetaBadge label="Beta" />
+          </>
+        ),
         tabs: [
           { label: 'Agents', isSelected: true },
-          { label: 'Policies' },
+          { label: 'Agent Policies' },
           { label: 'Enrollment tokens' },
-          { label: 'Data streams' },
+          { label: 'Datastreams' },
         ],
-        description:
-          'Manage and deploy policy updates to a group of agents of any size.',
-        rightSideItems: [
-          <EuiButton fill iconType="plusInCircle">
-            Add agent
-          </EuiButton>,
-        ],
-      }}
-      bottomBar={<EuiButton fill>Save</EuiButton>}>
+        description: 'Centralized management for Elastic Agents',
+      }}>
       <EuiPanel hasShadow={false} color="subdued">
         <EuiFlexGroup justifyContent="spaceAround">
           <EuiFlexItem grow={false}>
@@ -89,6 +100,11 @@ export default () => {
             </EuiFilterButton>
           </EuiFilterGroup>
         </EuiFlexItem>
+        <EuiFlexItem grow={false}>
+          <EuiButton iconType="plusInCircleFilled" fill>
+            Create agent policy
+          </EuiButton>
+        </EuiFlexItem>
       </EuiFlexGroup>
       <EuiSpacer />
       <div className="pageScreenshot__TBD">
@@ -99,6 +115,6 @@ export default () => {
           src={tableImg}
         />
       </div>
-    </ManagementPage>
+    </KibanaPage>
   );
 };

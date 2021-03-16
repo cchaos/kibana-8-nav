@@ -97,3 +97,7 @@ $euiSideNavEmphasizedBackgroundColor: transparentize($euiColorLightShade, .7);
     top: $euiHeaderHeightCompensation;
   }
 }
+
+.euiOverlayMask--belowHeader {
+  z-index: 998;
+}

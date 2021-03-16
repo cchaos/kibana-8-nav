@@ -124,15 +124,19 @@ export const KibanaNavLinksLast: ChromeNavGroupProps[] = [
         url: 'dev-tools-console',
       },
       {
+        label: 'Integrations',
+        url: 'management/ingest',
+      },
+      {
+        label: 'Fleet',
+        url: 'management/agents',
+      },
+      {
         label: 'Stack Monitoring',
       },
       {
         label: 'Stack Management',
         url: 'management/stack',
-      },
-      {
-        label: 'Fleet',
-        url: 'management/agents',
       },
       //   {
       //     label: 'Credentials',
