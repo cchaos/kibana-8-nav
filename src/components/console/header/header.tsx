@@ -25,10 +25,9 @@ export type ConsoleHeaderProps = Omit<
 >;
 
 export const consoleHeaderSections = (
-  inDeployment: ConsoleHeaderProps['inDeployment'] = false
+  inDeployment: ConsoleHeaderProps['inDeployment'] = false,
+  isMobile?: boolean
 ): EuiHeaderProps['sections'] => {
-  const isMobile = useIsWithinBreakpoints(['xs', 's']);
-
   function renderLogo() {
     return (
       <EuiHeaderLogo
@@ -82,7 +81,13 @@ export const consoleHeaderSections = (
 export const ConsoleHeader: React.FunctionComponent<ConsoleHeaderProps> = ({
   inDeployment,
 }) => {
+  // TO FIX: This doesn't seem to work on load
+  const isMobile = useIsWithinBreakpoints(['xs', 's']);
+
   return (
-    <EuiHeader theme="dark" sections={consoleHeaderSections(inDeployment)} />
+    <EuiHeader
+      theme="dark"
+      sections={consoleHeaderSections(inDeployment, isMobile)}
+    />
   );
 };

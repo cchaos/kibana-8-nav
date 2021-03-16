@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { Helmet } from 'react-helmet';
 
-import { CommonProps } from '@elastic/eui';
+import { CommonProps, useIsWithinBreakpoints } from '@elastic/eui';
 import { CloudHeaderProps, cloudHeaderSections } from './header';
 import { EuiPageLayout } from '../../eui/page/page_layout';
 import { consoleHeaderSections } from '../../console/header/header';
@@ -19,11 +19,14 @@ export const CloudChrome: React.FunctionComponent<CloudChromeProps> = ({
   pageTitle,
   breadcrumbs,
 }) => {
+  // TO FIX: This doesn't seem to work on load
+  const isMobile = useIsWithinBreakpoints(['xs', 's']);
+
   return (
     <EuiPageLayout
       headers={[
         {
-          sections: consoleHeaderSections(false),
+          sections: consoleHeaderSections(false, isMobile),
           theme: 'dark',
           position: 'sticky',
         },
