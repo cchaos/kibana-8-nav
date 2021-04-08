@@ -76,10 +76,6 @@ $euiSideNavEmphasizedBackgroundColor: transparentize($euiColorLightShade, .7);
 }
 
 /// HACKS
-.euiOverlayMask--belowHeader {
-  opacity: 0;
-  animation: none;
-}
 
 .euiBody--collapsibleNavIsOpen {
   overflow: auto;

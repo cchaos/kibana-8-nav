@@ -45,6 +45,7 @@ export default () => (
     navItem="Events"
     breadcrumbs={breadcrumbs}
     pageHeader={pageHeader}
+    bottomBar={<EuiButton fill>Save</EuiButton>}
     restrictWidth={false}>
     <EuiHorizontalRule margin="none" />
     <EuiPanel paddingSize="l" color="transparent">

@@ -8,6 +8,7 @@ import {
   EuiPopover,
   EuiText,
   EuiButtonIcon,
+  EuiToolTip,
 } from '@elastic/eui';
 
 type Props = CommonProps & HTMLAttributes<HTMLDivElement>;
@@ -52,12 +53,14 @@ export function EuiSuperDatePicker({
         </EuiPopover>
       </EuiFlexItem>
       <EuiFlexItem grow={false}>
-        <EuiButtonIcon
-          size="s"
-          iconType="refresh"
-          display="base"
-          aria-label="Refresh"
-        />
+        <EuiToolTip content="Testing tooltips">
+          <EuiButtonIcon
+            size="s"
+            iconType="refresh"
+            display="base"
+            aria-label="Refresh"
+          />
+        </EuiToolTip>
       </EuiFlexItem>
     </EuiFlexGroup>
   );

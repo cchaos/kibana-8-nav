@@ -4,7 +4,12 @@
  *
  * See: https://www.gatsbyjs.org/docs/static-query/
  */
-import React, { HTMLAttributes, useState, FunctionComponent } from 'react';
+import React, {
+  HTMLAttributes,
+  useState,
+  FunctionComponent,
+  useRef,
+} from 'react';
 import _ from 'lodash';
 import { navigate } from 'gatsby';
 
@@ -23,6 +28,7 @@ import {
   EuiLink,
   EuiText,
   EuiButton,
+  EuiOutsideClickDetector,
 } from '@elastic/eui';
 
 import {
@@ -158,80 +164,90 @@ export const KibanaNav: FunctionComponent<Props> = ({
   };
 
   return (
-    <EuiCollapsibleNav
-      id="kbnCollapsibleNav"
-      aria-label="Main navigation"
-      isOpen={navIsOpen}
-      button={
-        <EuiHeaderSectionItemButton
-          aria-label="Toggle main navigation"
-          onClick={() => setNavIsOpen(!navIsOpen)}>
-          <EuiIcon type={'menu'} size="m" aria-hidden="true" />
-        </EuiHeaderSectionItemButton>
-      }
-      onClose={() => setNavIsOpen(false)}>
-      {/* Shaded pinned section always with a home item */}
-      <EuiFlexItem grow={false} style={{ flexShrink: 0 }}>
-        <EuiCollapsibleNavGroup
-          background="light"
-          className="eui-yScroll"
-          style={{ maxHeight: '40vh' }}>
-          <EuiPinnableListGroup
-            aria-label="Pinned links" // A11y : Since this group doesn't have a visible `title` it should be provided an accessible description
-            listItems={alterLinksWithCurrentStateAndLinks(
-              KibanaNavTopLinks.links
-            ).concat(alterLinksWithCurrentStateAndLinks(pinnedItems, true))}
-            onPinClick={removePin}
-            maxWidth="none"
-            color="text"
-            gutterSize="none"
-            size="s"
-          />
-        </EuiCollapsibleNavGroup>
-      </EuiFlexItem>
-
-      <EuiHorizontalRule margin="none" />
-
-      {/* BOTTOM */}
-      <EuiFlexItem className="eui-yScroll">
-        {createNavGroups(KibanaNavLinksFirst)}
-
-        {false && (
+    <EuiOutsideClickDetector
+      isDisabled={!navIsOpen}
+      onOutsideClick={() => setNavIsOpen(false)}>
+      <EuiCollapsibleNav
+        id="kbnCollapsibleNav"
+        aria-label="Main navigation"
+        maskProps={{ style: 'display: none' }}
+        isOpen={navIsOpen}
+        button={
+          <EuiHeaderSectionItemButton
+            aria-label="Toggle main navigation"
+            onClick={() => setNavIsOpen((isOpen) => !isOpen)}
+            onMouseUpCapture={(e: React.MouseEvent<HTMLElement>) => {
+              e.nativeEvent.stopImmediatePropagation();
+            }}>
+            <EuiIcon type={'menu'} size="m" aria-hidden="true" />
+          </EuiHeaderSectionItemButton>
+        }
+        onClose={() => setNavIsOpen(false)}>
+        {/* Shaded pinned section always with a home item */}
+        <EuiFlexItem grow={false} style={{ flexShrink: 0 }}>
           <EuiCollapsibleNavGroup
             background="light"
-            iconType="logoWorkplaceSearch"
-            iconSize="l"
-            title="Enterprise Search"
-            isCollapsible={true}
-            initialIsOpen={true}
-            arrowDisplay="none"
-            extraAction={
-              <EuiButtonIcon
-                aria-label="Hide and never show again"
-                title="Hide and never show again"
-                iconType="cross"
-              />
-            }>
-            <EuiText size="s" color="subdued" style={{ padding: '0 8px 8px' }}>
-              <p>
-                Quickly add pretuned search to your website, app, or workplace.
-                Search it all, simply.
-                <br />
-                <EuiLink
-                  onClick={() => {
-                    navigate('enterprise-search/overview');
-                  }}>
-                  Learn more
-                </EuiLink>
-              </p>
-            </EuiText>
+            className="eui-yScroll"
+            style={{ maxHeight: '40vh' }}>
+            <EuiPinnableListGroup
+              aria-label="Pinned links" // A11y : Since this group doesn't have a visible `title` it should be provided an accessible description
+              listItems={alterLinksWithCurrentStateAndLinks(
+                KibanaNavTopLinks.links
+              ).concat(alterLinksWithCurrentStateAndLinks(pinnedItems, true))}
+              onPinClick={removePin}
+              maxWidth="none"
+              color="text"
+              gutterSize="none"
+              size="s"
+            />
           </EuiCollapsibleNavGroup>
-        )}
+        </EuiFlexItem>
 
-        {createNavGroups(KibanaNavLinksLast)}
+        <EuiHorizontalRule margin="none" />
 
-        {/* NO -- Docking button only for larger screens that can support it*/}
-        {/* <EuiShowFor sizes={['l', 'xl']}>
+        {/* BOTTOM */}
+        <EuiFlexItem className="eui-yScroll">
+          {createNavGroups(KibanaNavLinksFirst)}
+
+          {false && (
+            <EuiCollapsibleNavGroup
+              background="light"
+              iconType="logoWorkplaceSearch"
+              iconSize="l"
+              title="Enterprise Search"
+              isCollapsible={true}
+              initialIsOpen={true}
+              arrowDisplay="none"
+              extraAction={
+                <EuiButtonIcon
+                  aria-label="Hide and never show again"
+                  title="Hide and never show again"
+                  iconType="cross"
+                />
+              }>
+              <EuiText
+                size="s"
+                color="subdued"
+                style={{ padding: '0 8px 8px' }}>
+                <p>
+                  Quickly add pretuned search to your website, app, or
+                  workplace. Search it all, simply.
+                  <br />
+                  <EuiLink
+                    onClick={() => {
+                      navigate('enterprise-search/overview');
+                    }}>
+                    Learn more
+                  </EuiLink>
+                </p>
+              </EuiText>
+            </EuiCollapsibleNavGroup>
+          )}
+
+          {createNavGroups(KibanaNavLinksLast)}
+
+          {/* NO -- Docking button only for larger screens that can support it*/}
+          {/* <EuiShowFor sizes={['l', 'xl']}>
           <EuiCollapsibleNavGroup>
             <EuiListGroupItem
               size="xs"
@@ -245,25 +261,26 @@ export const KibanaNav: FunctionComponent<Props> = ({
           </EuiCollapsibleNavGroup>
         </EuiShowFor> */}
 
+          <EuiHorizontalRule margin="none" />
+        </EuiFlexItem>
+
         <EuiHorizontalRule margin="none" />
-      </EuiFlexItem>
 
-      <EuiHorizontalRule margin="none" />
-
-      <EuiFlexItem grow={false}>
-        <EuiCollapsibleNavGroup>
-          <EuiButton
-            onClick={() => {
-              navigate('management/agents');
-              setNavIsOpen(false);
-            }}
-            iconType="plusInCircleFilled"
-            fill
-            fullWidth>
-            Add data
-          </EuiButton>
-        </EuiCollapsibleNavGroup>
-      </EuiFlexItem>
-    </EuiCollapsibleNav>
+        <EuiFlexItem grow={false}>
+          <EuiCollapsibleNavGroup>
+            <EuiButton
+              onClick={() => {
+                navigate('management/agents');
+                setNavIsOpen(false);
+              }}
+              iconType="plusInCircleFilled"
+              fill
+              fullWidth>
+              Add data
+            </EuiButton>
+          </EuiCollapsibleNavGroup>
+        </EuiFlexItem>
+      </EuiCollapsibleNav>
+    </EuiOutsideClickDetector>
   );
 };

@@ -1898,10 +1898,10 @@
   resolved "https://registry.yarnpkg.com/@elastic/eslint-config-kibana/-/eslint-config-kibana-0.15.0.tgz#a552793497cdfc1829c2f9b7cd7018eb008f1606"
   integrity sha1-pVJ5NJfN/Bgpwvm3zXAY6wCPFgY=
 
-"@elastic/eui@^31.9.1":
-  version "31.9.1"
-  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-31.9.1.tgz#8c5eeccf47eb20590cfab47a40156718d8f11e9a"
-  integrity sha512-+IspxX6x+S2myfB2s8XgE75EYOOYFcmWfuvLBhCYwsH6MGPVEqYShLXe7HadAtYaLxuKsxLeIuyPF7tm3t1iBQ==
+"@elastic/eui@^32.0.4":
+  version "32.0.4"
+  resolved "https://registry.yarnpkg.com/@elastic/eui/-/eui-32.0.4.tgz#46c001abb162e494e2c11ea48def840b5520f1dc"
+  integrity sha512-NL+bzzxAB6t/BPwaXqELIAWT0wZMcHyciAq+dGS44n7ZYbGzlDgTf77hlvwUsdDhFPhpMyFHJ55rE6ZtqBX/+w==
   dependencies:
     "@types/chroma-js" "^2.0.0"
     "@types/lodash" "^4.14.160"
@@ -1914,7 +1914,7 @@
     chroma-js "^2.1.0"
     classnames "^2.2.6"
     highlight.js "^9.18.5"
-    lodash "^4.17.20"
+    lodash "^4.17.21"
     numeral "^2.0.6"
     prop-types "^15.6.0"
     react-ace "^7.0.5"
@@ -1935,7 +1935,7 @@
     tabbable "^3.0.0"
     text-diff "^1.0.1"
     unified "^9.2.0"
-    url-parse "^1.4.7"
+    url-parse "^1.5.0"
     uuid "^8.3.0"
     vfile "^4.2.0"
 
@@ -10825,7 +10825,7 @@ lodash@^4.17.19:
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
   integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
 
-lodash@^4.17.20:
+lodash@^4.17.21:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -16306,7 +16306,7 @@ url-parse@^1.1.8, url-parse@^1.4.3:
     querystringify "^2.1.1"
     requires-port "^1.0.0"
 
-url-parse@^1.4.7:
+url-parse@^1.5.0:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.5.1.tgz#d5fa9890af8a5e1f274a2c98376510f6425f6e3b"
   integrity sha512-HOfCOUJt7iSYzEx/UqgtwKRMC6EU91NFhsCHMv9oM03VJcVo2Qrp8T8kI9D7amFf1cu+/3CEhgb3rF9zL7k85Q==
