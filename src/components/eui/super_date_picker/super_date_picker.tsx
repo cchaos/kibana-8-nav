@@ -11,10 +11,14 @@ import {
   EuiToolTip,
 } from '@elastic/eui';
 
-type Props = CommonProps & HTMLAttributes<HTMLDivElement>;
+type Props = CommonProps &
+  HTMLAttributes<HTMLDivElement> & {
+    compressed?: boolean;
+  };
 
 export function EuiSuperDatePicker({
   className,
+  compressed = true,
   ...rest
 }: Props): ReactElement {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
@@ -35,7 +39,7 @@ export function EuiSuperDatePicker({
           button={
             <EuiButton
               onClick={() => setIsPopoverOpen((isOpen) => !isOpen)}
-              size="s"
+              size={compressed ? 's' : 'm'}
               iconType="calendar">
               Last 15 min
             </EuiButton>
@@ -55,7 +59,7 @@ export function EuiSuperDatePicker({
       <EuiFlexItem grow={false}>
         <EuiToolTip content="Testing tooltips">
           <EuiButtonIcon
-            size="s"
+            size={compressed ? 's' : 'm'}
             iconType="refresh"
             display="base"
             aria-label="Refresh"

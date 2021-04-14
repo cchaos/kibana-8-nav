@@ -67,12 +67,17 @@ $euiSideNavEmphasizedBackgroundColor: transparentize($euiColorLightShade, .7);
   }
 }
 
-.euiPanel.euiPanel--subdued {
-  background-color: $euiSideNavEmphasizedBackgroundColor;
-}
+// .euiPanel.euiPanel--subdued {
+//   background-color: transparentize($euiColorPrimary, .9) !important;
+// }
 
 .euiCollapsibleNav {
   width: $euiPageSidebarMinWidth + ($euiSizeL * 2);
+}
+
+.euiPageSidebar--collapsed {
+  min-width: 0;
+  flex-basis: auto;
 }
 
 /// HACKS

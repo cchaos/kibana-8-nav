@@ -4,7 +4,7 @@ import React, {
   useContext,
   useEffect,
 } from 'react';
-import { EuiBreadcrumb, EuiHeaderLinks } from '@elastic/eui';
+import { EuiBreadcrumb, EuiButtonEmpty, EuiHeaderLinks } from '@elastic/eui';
 import { KibanaPage, KibanaPageProps } from '../chrome/page/page';
 import { ObservabilityNav } from './nav';
 import { navigate } from 'gatsby';
@@ -23,6 +23,7 @@ export const ObservabilityPage: FunctionComponent<ObservabilityPage> = ({
   navItem,
   children,
   pageTitle,
+  globals,
   ...rest
 }) => {
   const baseBreadcrumb: EuiBreadcrumb[] = [
@@ -53,8 +54,32 @@ export const ObservabilityPage: FunctionComponent<ObservabilityPage> = ({
     });
   }, [breadcrumbs, headerLinks]);
 
+  let setGlobals;
+  if (globals) {
+    setGlobals = {
+      filters: false,
+      placeholder: 'Search transactions, errors and metrics...',
+      prepend: (
+        <EuiButtonEmpty iconType="arrowDown" iconSide="right">
+          Production
+        </EuiButtonEmpty>
+      ),
+      compressed: false,
+    };
+
+    if (globals !== true) {
+      setGlobals = {
+        ...setGlobals,
+        ...globals,
+      };
+    }
+  }
+
   return (
-    <KibanaPage solutionNav={<ObservabilityNav navItem={navItem} />} {...rest}>
+    <KibanaPage
+      solutionNav={<ObservabilityNav navItem={navItem} />}
+      globals={setGlobals}
+      {...rest}>
       {children}
     </KibanaPage>
   );

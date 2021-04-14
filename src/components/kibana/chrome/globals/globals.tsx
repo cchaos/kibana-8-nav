@@ -7,34 +7,57 @@ import {
   EuiFlexItem,
   EuiButtonEmpty,
   EuiButtonIcon,
+  EuiFieldTextProps,
 } from '@elastic/eui';
 import { EuiSuperDatePicker } from '../../../eui';
 
-type Props = CommonProps & HTMLAttributes<HTMLDivElement>;
+export type KibanaGlobalsProps = CommonProps &
+  HTMLAttributes<HTMLDivElement> & {
+    filters?: boolean;
+    placeholder?: string;
+    prepend?: EuiFieldTextProps['prepend'];
+    compressed?: boolean;
+    disabledSearch?: boolean;
+  };
 
-export function KibanaGlobals({ className, ...rest }: Props): ReactElement {
+export function KibanaGlobals({
+  className,
+  filters = true,
+  placeholder,
+  prepend,
+  compressed = true,
+  disabledSearch = false,
+  ...rest
+}: KibanaGlobalsProps): ReactElement {
   const classes = classNames('kbnGlobals', className);
 
   return (
     <div className={classes}>
       <EuiFlexGroup gutterSize="s" responsive={false} {...rest}>
-        <EuiFlexItem grow={false}>
-          <EuiButtonIcon
-            size="s"
-            iconType="filter"
-            aria-label="Filter options"
-            display="base"
-          />
-        </EuiFlexItem>
+        {filters && (
+          <EuiFlexItem grow={false}>
+            <EuiButtonIcon
+              size={compressed ? 's' : 'm'}
+              iconType="filter"
+              aria-label="Filter options"
+              display="base"
+            />
+          </EuiFlexItem>
+        )}
         <EuiFlexItem grow={true}>
           <EuiFieldText
-            placeholder="Filter with KQL..."
-            compressed
+            placeholder={placeholder || 'Filter with KQL...'}
+            icon={placeholder ? 'search' : undefined}
+            compressed={compressed}
             fullWidth
+            disabled={disabledSearch}
+            prepend={prepend}
             append={
-              <EuiButtonEmpty size="xs" iconType="plusInCircle">
-                Add
-              </EuiButtonEmpty>
+              filters ? (
+                <EuiButtonEmpty size="xs" iconType="plusInCircle">
+                  Add
+                </EuiButtonEmpty>
+              ) : undefined
             }
           />
         </EuiFlexItem>
@@ -42,7 +65,7 @@ export function KibanaGlobals({ className, ...rest }: Props): ReactElement {
         <EuiButton size="s" iconType="plusInCircle" color="text" minWidth={0} />
       </EuiFlexItem> */}
         <EuiFlexItem grow={false}>
-          <EuiSuperDatePicker />
+          <EuiSuperDatePicker compressed={compressed} />
         </EuiFlexItem>
       </EuiFlexGroup>
     </div>

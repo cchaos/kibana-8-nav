@@ -74,6 +74,7 @@ export const KibanaNavLinksFirst: ChromeNavGroupProps[] = [
       },
       {
         label: 'APM',
+        url: 'observability/services/all',
       },
       {
         label: 'Uptime',

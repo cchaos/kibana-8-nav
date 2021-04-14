@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { navigate } from 'gatsby';
 
-import { EuiIcon, EuiSideNav, EuiSpacer, EuiTitle } from '@elastic/eui';
+import { EuiAvatar, EuiSideNav, EuiSpacer, EuiTitle } from '@elastic/eui';
 
 type Props = {
   currentUrl?: string;
@@ -73,7 +73,8 @@ export function KibanaSolutionNav({ currentUrl = 'management/stack' }: Props) {
     <>
       <EuiTitle size="xs">
         <h2>
-          <EuiIcon size="l" type="managementApp" /> &ensp; Management
+          <EuiAvatar color="plain" name="Management" iconType="managementApp" />{' '}
+          &ensp; Management
         </h2>
       </EuiTitle>
       <EuiSpacer />

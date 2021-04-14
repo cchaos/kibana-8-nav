@@ -1,6 +1,7 @@
-import React, { FunctionComponent, ReactNode, useRef } from 'react';
+import React, { FunctionComponent, ReactNode, useState } from 'react';
 
 import {
+  EuiButtonIcon,
   EuiEmptyPrompt,
   EuiPage,
   EuiPageBody,
@@ -12,17 +13,18 @@ import {
   EuiPageTemplate,
   EuiPageTemplateProps,
   useIsWithinBreakpoints,
-  useResizeObserver,
 } from '@elastic/eui';
 
 import { KibanaGlobals } from '../globals';
 import { EuiSuperDatePicker } from '../../../eui';
+import { KibanaGlobalsProps } from '../globals/globals';
+import classNames from 'classnames';
 
 export type KibanaPageProps = EuiPageTemplateProps & {
-  globals?: boolean;
+  globals?: boolean | KibanaGlobalsProps;
   solutionNav?: ReactNode;
+  solutionNavCollapsed?: boolean;
   resizableSidebar?: boolean;
-  bottomBar?: ReactNode;
   pageHeader?: EuiPageHeaderProps & {
     /**
      * Time will wipe out any rightSideItems / rightSideContent
@@ -36,63 +38,78 @@ export const KibanaPage: FunctionComponent<KibanaPageProps> = ({
   pageHeader,
   globals = false,
   solutionNav,
+  solutionNavCollapsed,
   children,
   bottomBar,
   restrictWidth = true,
   pageContentProps = {},
   ...rest
 }) => {
-  const isMobile = useIsWithinBreakpoints(['xs', 's']);
+  const isWindowSmallEnoughToCollapse = useIsWithinBreakpoints([
+    'xs',
+    's',
+    'm',
+    'l',
+  ]);
+  const [isSideNavCollapsed, setIsSideNavCollapsed] = useState(
+    solutionNavCollapsed
+  );
 
   if (pageHeader && pageHeader.time) {
-    pageHeader.rightSideItems = [<EuiSuperDatePicker />];
+    pageHeader.rightSideItems = pageHeader.rightSideItems || [];
+    pageHeader.rightSideItems.unshift(<EuiSuperDatePicker />);
     pageHeader.responsive = 'reverse';
     pageHeader.rightSideGroupProps = { responsive: true };
     pageHeader.time = undefined;
   }
 
-  const optionalSideBar = solutionNav;
-  const optionalGlobals = globals && <KibanaGlobals />;
+  const sideBarProps = {
+    className: classNames(
+      {
+        'euiPageSidebar--collapsed':
+          isSideNavCollapsed && isWindowSmallEnoughToCollapse,
+      },
+      rest.pageSideBarProps?.className
+    ),
+    ...rest.pageSideBarProps,
+  };
 
-  let optionalBottomBar;
-  if (bottomBar) {
-    const resizeRef = useRef<HTMLDivElement | null>(null);
+  const collapsedButton = (
+    <EuiButtonIcon
+      iconType="menuRight"
+      aria-label="open menu"
+      onClick={() => setIsSideNavCollapsed((collapsed) => !collapsed)}
+    />
+  );
 
-    optionalBottomBar = (
-      <div
-        ref={resizeRef}
-        className="euiBottomBar euiBottomBar--paddingSmall"
-        style={{
-          position: globals ? 'sticky' : 'fixed',
-          bottom: 0,
-          top: globals ? 0 : undefined,
-          left: isMobile || !solutionNav ? 0 : 240,
-        }}>
-        {bottomBar}
-      </div>
-    );
+  const optionalSideBar =
+    isSideNavCollapsed && isWindowSmallEnoughToCollapse
+      ? collapsedButton
+      : solutionNav;
 
-    const dimensions = useResizeObserver(resizeRef.current);
-
-    pageContentProps.style = {
-      paddingBottom: globals ? undefined : dimensions.height,
-      ...pageContentProps.style,
-    };
+  let optionalGlobals;
+  if (typeof globals !== 'boolean') {
+    optionalGlobals = <KibanaGlobals {...globals} />;
+  } else if (globals === true) {
+    optionalGlobals = <KibanaGlobals />;
   }
 
   if (template === 'empty') {
     return (
+      // @ts-ignore TOOD FIX TYPE
       <EuiPageTemplate
         template="empty"
         restrictWidth={optionalGlobals ? false : restrictWidth}
         pageContentProps={pageContentProps}
         paddingSize={optionalGlobals ? 'none' : 'l'}
         pageSideBar={optionalSideBar}
+        pageSideBarProps={sideBarProps}
+        bottomBar={bottomBar}
+        // pageSideBarProps={{ style: { minWidth: } }}
         pageHeader={pageHeader}
         {...rest}>
         {optionalGlobals}
         {children}
-        {optionalBottomBar}
       </EuiPageTemplate>
     );
   }
@@ -123,28 +140,30 @@ export const KibanaPage: FunctionComponent<KibanaPageProps> = ({
       default:
         return (
           <EuiPage paddingSize="none">
-            <EuiPageSideBar sticky>{optionalSideBar}</EuiPageSideBar>
+            {optionalSideBar && (
+              <EuiPageSideBar {...sideBarProps} sticky>
+                {optionalSideBar}
+              </EuiPageSideBar>
+            )}
 
             <EuiPageBody panelled paddingSize="none" restrictWidth={false}>
               {optionalGlobals}
-              <EuiPageHeader
-                restrictWidth={restrictWidth}
-                paddingSize="l"
-                {...pageHeader}
-              />
+              <EuiPageBody paddingSize={rest.paddingSize || 'l'}>
+                <EuiPageHeader bottomBorder={true} {...pageHeader} />
 
-              <EuiPageContent
-                {...pageContentProps}
-                hasBorder={false}
-                hasShadow={false}
-                paddingSize="l"
-                color="transparent"
-                borderRadius="none">
-                <EuiPageContentBody restrictWidth={restrictWidth}>
-                  {children}
-                </EuiPageContentBody>
-              </EuiPageContent>
-              {optionalBottomBar}
+                <EuiPageContent
+                  {...pageContentProps}
+                  hasBorder={false}
+                  hasShadow={false}
+                  paddingSize="none"
+                  color="transparent"
+                  borderRadius="none">
+                  <EuiPageContentBody restrictWidth={false}>
+                    {children}
+                  </EuiPageContentBody>
+                </EuiPageContent>
+                {/* {optionalBottomBar} */}
+              </EuiPageBody>
             </EuiPageBody>
           </EuiPage>
         );
@@ -171,16 +190,18 @@ export const KibanaPage: FunctionComponent<KibanaPageProps> = ({
    * When the globals don't exist, can just use the EuiPageTemplate
    */
   return (
+    // @ts-ignore TOOD FIX TYPE
     <EuiPageTemplate
       template={template}
       pageContentProps={pageContentProps}
       pageSideBar={optionalSideBar}
+      pageSideBarProps={sideBarProps}
       pageHeader={pageHeader}
+      bottomBar={bottomBar}
       restrictWidth={restrictWidth}
       {...rest}>
       {emptyPrompt}
       {children}
-      {optionalBottomBar}
     </EuiPageTemplate>
   );
 };

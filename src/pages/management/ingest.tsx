@@ -13,6 +13,8 @@ import {
   EuiIcon,
   EuiHorizontalRule,
   EuiKeyPadMenuItem,
+  EuiCard,
+  EuiSplitPanel,
 } from '@elastic/eui';
 
 import { KibanaPage } from '../../components/kibana/chrome/page/page';
@@ -31,7 +33,7 @@ const Cards: ReactNode[] = [];
 
 for (let i = 0; i < 20; i++) {
   Cards.push(
-    <EuiFlexItem>
+    <EuiFlexItem grow={false}>
       <EuiKeyPadMenuItem
         label="Elastic"
         betaBadgeLabel="Installed"
@@ -54,6 +56,8 @@ export default () => {
 
   return (
     <KibanaPage
+      pageBodyProps={{ panelled: true, paddingSize: 'none' }}
+      pageContentProps={{ color: 'subdued', hasBorder: true }}
       pageHeader={{
         pageTitle: 'Integrations',
         description: 'Browse integrations for popular apps and services.',
@@ -69,7 +73,40 @@ export default () => {
           />,
         ],
       }}>
-      <EuiFieldSearch fullWidth placeholder="Search integrations..." />
+      <EuiTitle size="xs">
+        <h2>Suggestions for you</h2>
+      </EuiTitle>
+      <EuiSpacer />
+      <EuiFlexGroup gutterSize="xl">
+        <EuiFlexItem>
+          <EuiCard
+            icon={<EuiIcon type="logoAWS" size="xl" />}
+            title="AWS EC2"
+            description="Example of a card’s description. Stick to one or two sentences."
+          />
+        </EuiFlexItem>
+        <EuiFlexItem>
+          <EuiCard
+            icon={<EuiIcon type="logoAWS" size="xl" />}
+            title="AWS EC2"
+            description="Example of a card’s description. Stick to one or two sentences."
+          />
+        </EuiFlexItem>
+        <EuiFlexItem>
+          <EuiCard
+            icon={<EuiIcon type="logoAWS" size="xl" />}
+            title="AWS EC2"
+            description="Example of a card’s description. Stick to one or two sentences."
+          />
+        </EuiFlexItem>
+        <EuiFlexItem>
+          <EuiCard
+            icon={<EuiIcon type="logoAWS" size="xl" />}
+            title="AWS EC2"
+            description="Example of a card’s description. Stick to one or two sentences."
+          />
+        </EuiFlexItem>
+      </EuiFlexGroup>
       <EuiSpacer size="xxl" />
       <EuiFlexGroup gutterSize="xl">
         <EuiFlexItem grow={false}>
@@ -89,7 +126,7 @@ export default () => {
               <h2>Available</h2>
             </EuiTitle>
             <EuiSpacer size="s" />
-            <EuiFacetGroup>
+            <EuiFacetGroup gutterSize="none">
               <EuiFacetButton quantity={35}>All</EuiFacetButton>
               <EuiFacetButton quantity={1}>Azure</EuiFacetButton>
               <EuiFacetButton quantity={2}>Cloud</EuiFacetButton>
@@ -108,9 +145,20 @@ export default () => {
           </div>
         </EuiFlexItem>
         <EuiFlexItem>
-          <EuiFlexGrid style={{ padding: 24 }} columns={4} gutterSize="xl">
-            {Cards}
-          </EuiFlexGrid>
+          <EuiSplitPanel.Outer>
+            <EuiSplitPanel.Inner color="subdued">
+              <EuiFieldSearch fullWidth placeholder="Search integrations..." />
+            </EuiSplitPanel.Inner>
+            <EuiHorizontalRule margin="none" />
+            <EuiSplitPanel.Inner>
+              <EuiFlexGrid
+                style={{ padding: 24, justifyContent: 'space-between' }}
+                columns={4}
+                gutterSize="xl">
+                {Cards}
+              </EuiFlexGrid>
+            </EuiSplitPanel.Inner>
+          </EuiSplitPanel.Outer>
         </EuiFlexItem>
       </EuiFlexGroup>
     </KibanaPage>

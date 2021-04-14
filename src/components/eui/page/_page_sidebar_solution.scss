@@ -28,5 +28,6 @@
 }
 
 .euiSolutionNav__titleIcon {
+  @include euiBottomShadowSmall;
   margin-right: $euiSize;
 }

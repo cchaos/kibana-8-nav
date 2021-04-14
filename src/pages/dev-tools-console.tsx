@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 
-import { EuiBreadcrumb, EuiButton } from '@elastic/eui';
+import { EuiBreadcrumb, EuiButton, EuiHorizontalRule } from '@elastic/eui';
 import { KibanaChromeContext } from '../components/kibana/layout';
 import { KibanaPage } from '../components/kibana/chrome/page/page';
 
@@ -25,6 +25,9 @@ export default () => {
 
   return (
     <KibanaPage
+      pageBodyProps={{ panelled: true, paddingSize: 'none' }}
+      pageContentProps={{ color: 'subdued' }}
+      pageContentBodyProps={{ paddingSize: 'none' }}
       restrictWidth={false}
       pageHeader={{
         tabs: [
@@ -49,6 +52,7 @@ export default () => {
           </EuiButton>
         </>
       }>
+      <EuiHorizontalRule margin="none" />
       {/** TODO: How to afford for bottom bar displacement outside of body */}
       <div className="pageScreenshot__TBD">
         <img

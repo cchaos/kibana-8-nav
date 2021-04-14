@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
 import { navigate } from 'gatsby';
 
-import { EuiIcon, EuiLink, EuiSideNav, EuiTitle } from '@elastic/eui';
+import {
+  EuiAvatar,
+  EuiIcon,
+  EuiLink,
+  EuiSideNav,
+  EuiTitle,
+} from '@elastic/eui';
 
 type Props = {
   currentItem?: string;
@@ -69,10 +75,11 @@ export const CloudDeploymentsNav: any = ({
       <EuiTitle className="euiSolutionNav__title" size="xs">
         <h2>
           <EuiLink color="text" onClick={() => navigate('/cloud/deployments')}>
-            <EuiIcon
+            <EuiAvatar
+              color="plain"
+              iconType="package"
+              name="Deployments"
               className="euiSolutionNav__titleIcon"
-              size="l"
-              type="package"
             />
             <strong>Deployments</strong>
           </EuiLink>

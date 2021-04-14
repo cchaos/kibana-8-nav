@@ -33,7 +33,7 @@ export default () => (
         </EuiButton>,
       ],
     }}
-    sideNavItem="Overview"
+    sideNavItem="All"
     breadcrumbs={breadcrumbs}>
     <EuiFlexGroup>
       <EuiFlexItem grow={3}>

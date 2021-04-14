@@ -2,10 +2,11 @@ import React, { ReactNode } from 'react';
 import { Link } from 'gatsby';
 
 import { EuiHeaderLink, EuiBreadcrumb } from '@elastic/eui';
-import { ObservabilityPage } from '../../components/kibana/observability/page';
+
+import { ObservabilityPage } from '../../../components/kibana/observability/page';
 
 // @ts-ignore
-import tracesTableImg from '../../images/obs-traces-table.svg';
+import listImg from '../../../images/obs-services-table.svg';
 
 const breadcrumbs: EuiBreadcrumb[] = [
   {
@@ -13,7 +14,7 @@ const breadcrumbs: EuiBreadcrumb[] = [
     href: '#',
   },
   {
-    text: 'Traces',
+    text: 'Services',
   },
 ];
 
@@ -22,21 +23,22 @@ const headerLinks: ReactNode = <EuiHeaderLink>Alerts</EuiHeaderLink>;
 export default () => (
   <ObservabilityPage
     globals={true}
-    pageTitle="Traces"
-    navItem="Traces"
+    pageTitle="All services"
+    navItem="Services"
     headerLinks={headerLinks}
     breadcrumbs={breadcrumbs}
     pageHeader={{
-      pageTitle: 'Traces',
+      pageTitle: 'Services',
     }}>
     <Link
-      to="/observability/services/trace-get"
+      className="pageScreenshot__TBD"
       style={{ display: 'block' }}
-      className="pageScreenshot__TBD">
+      to="/observability/services/checkout-service">
       <img
         className="pageScreenshot pageScreenshot--fullWidth"
-        alt="Traces"
-        src={tracesTableImg}
+        alt="Deployments list"
+        width={678}
+        src={listImg}
       />
     </Link>
   </ObservabilityPage>

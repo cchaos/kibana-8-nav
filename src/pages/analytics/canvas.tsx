@@ -7,6 +7,7 @@ import {
   EuiFilterButton,
   EuiFilterGroup,
   EuiSpacer,
+  EuiPanel,
 } from '@elastic/eui';
 // @ts-ignore
 import canvasImg from '../../images/Canvas - Listing.png';
@@ -41,6 +42,8 @@ export default () => {
 
   return (
     <KibanaPage
+      pageBodyProps={{ panelled: true, paddingSize: 'none' }}
+      pageContentProps={{ color: 'subdued' }}
       pageHeader={{
         tabs: tabs,
         rightSideItems: [
@@ -66,14 +69,14 @@ export default () => {
         </EuiFlexItem>
       </EuiFlexGroup>
       <EuiSpacer />
-      <div className="pageScreenshot__TBD">
+      <EuiPanel className="pageScreenshot__TBD">
         <img
           className="pageScreenshot pageScreenshot--responsive"
           alt="Canvas listing page"
           width={1212}
           src={canvasImg}
         />
-      </div>
+      </EuiPanel>
     </KibanaPage>
   );
 };

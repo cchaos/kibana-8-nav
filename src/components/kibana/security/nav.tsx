@@ -1,13 +1,7 @@
 import React, { useState } from 'react';
 import { navigate } from 'gatsby';
 
-import {
-  EuiIcon,
-  EuiLink,
-  EuiSideNav,
-  EuiSpacer,
-  EuiTitle,
-} from '@elastic/eui';
+import { EuiAvatar, EuiSideNav, EuiTitle } from '@elastic/eui';
 
 type Props = {
   navItem?: string;
@@ -40,6 +34,9 @@ export function SecurityNav({ navItem }: Props) {
   };
 
   const sideNav = [
+    createItem('', {
+      items: [createItem('Overview', { url: 'security/overview' })],
+    }),
     createItem('Alerts', {
       disabled: false,
       items: [createItem('Overview', { isSelected: false })],
@@ -75,14 +72,13 @@ export function SecurityNav({ navItem }: Props) {
     <div className="euiSolutionNav">
       <EuiTitle className="euiSolutionNav__title" size="xs">
         <h2>
-          <EuiLink color="text" onClick={() => navigate('/security/overview')}>
-            <EuiIcon
-              className="euiSolutionNav__titleIcon"
-              size="l"
-              type="logoSecurity"
-            />
-            <strong>Security</strong>
-          </EuiLink>
+          <EuiAvatar
+            color="plain"
+            iconType="logoSecurity"
+            name="Security"
+            className="euiSolutionNav__titleIcon"
+          />
+          <strong>Security</strong>
         </h2>
       </EuiTitle>
       <EuiSideNav

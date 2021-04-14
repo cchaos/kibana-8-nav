@@ -44,7 +44,6 @@ export default () => {
       }}>
       <EuiFieldSearch fullWidth placeholder="Search for a by map name..." />
       <EuiSpacer />
-
       <div className="pageScreenshot__TBD">
         <img
           className="pageScreenshot pageScreenshot--responsive"

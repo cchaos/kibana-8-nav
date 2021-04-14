@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { navigate } from 'gatsby';
 
-import { EuiBreadcrumb } from '@elastic/eui';
+import { EuiBreadcrumb, EuiHorizontalRule } from '@elastic/eui';
 import { KibanaPage } from '../../components/kibana/chrome/page/page';
 import { KibanaChromeContext } from '../../components/kibana/layout';
 import { KibanaPageHeaderProps } from '../../components/kibana/chrome/page/page_header';
@@ -61,13 +61,16 @@ export default () => {
 
   return (
     <KibanaPage
+      pageBodyProps={{ panelled: true, paddingSize: 'none' }}
+      pageContentProps={{ color: 'subdued' }}
+      pageContentBodyProps={{ paddingSize: 'none' }}
       restrictWidth={false}
       pageHeader={{
         tabs: tabs,
         time: true,
         alignItems: 'center',
-      }}
-      pageContentBodyProps={{ paddingSize: 'none' }}>
+      }}>
+      <EuiHorizontalRule margin="none" />
       <div className="pageScreenshot__TBD">
         <img
           className="pageScreenshot pageScreenshot--fullWidth"

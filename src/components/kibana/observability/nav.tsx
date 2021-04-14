@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { navigate } from 'gatsby';
 
-import { EuiIcon, EuiLink, EuiSideNav, EuiTitle } from '@elastic/eui';
+import { EuiAvatar, EuiSideNav, EuiTitle } from '@elastic/eui';
 
 type Props = {
   navItem?: string;
@@ -9,6 +9,7 @@ type Props = {
 
 export function ObservabilityNav({ navItem }: Props) {
   const [isSideNavOpenOnMobile, setIsSideNavOpenOnMobile] = useState(false);
+  const [forcedOpenId, setForcedOpenId] = useState('');
 
   const toggleOpenOnMobile = () => {
     setIsSideNavOpenOnMobile(!isSideNavOpenOnMobile);
@@ -34,41 +35,61 @@ export function ObservabilityNav({ navItem }: Props) {
   };
 
   const sideNav = [
+    createItem('', {
+      items: [createItem('Overview', { url: 'observability/overview' })],
+    }),
     createItem('Logs', {
       disabled: false,
       items: [
         createItem('Stream', {
           disabled: true,
-          items: [createItem('Overview', { isSelected: false })],
+          // items: [createItem('Overview', { isSelected: false })],
         }),
-        createItem('Log rage'),
+        createItem('Anomalies'),
         createItem('Categories'),
-        createItem('Settings'),
+        // createItem('Settings'),
       ],
     }),
-    createItem('Metrics', {
+    createItem('Infrastructure', {
       disabled: false,
-      items: [createItem('Overview', { isSelected: false })],
+      items: [
+        createItem('Inventory', {
+          disabled: false,
+          forceOpen: forcedOpenId === 'Inventory',
+          onClick: () => {
+            setForcedOpenId((id) => (id === 'Inventory' ? '' : 'Inventory'));
+          },
+          items: [createItem('Hosts'), createItem('AWS')],
+        }),
+        createItem('Metrics explorer'),
+      ],
     }),
     createItem('APM', {
       disabled: false,
       items: [
-        createItem('Services'),
+        createItem('Services', { url: 'observability/services/all' }),
         createItem('Traces', { url: 'observability/trace' }),
-        createItem('Settings', {
-          url: 'observability/apm-settings',
-          items: [
-            createItem('Agent configuration', { disabled: false }),
-            createItem('Anomaly detection'),
-            createItem('Customize app'),
-            createItem('Indices'),
-          ],
-        }),
+        createItem('Service map', { url: 'observability/service-map' }),
       ],
     }),
     createItem('Uptime', {
       disabled: false,
-      items: [createItem('Overview', { isSelected: false })],
+      items: [createItem('Monitoring overview'), createItem('Certificates')],
+    }),
+    createItem('User experience', {
+      disabled: false,
+      items: [createItem('Dashboard'), createItem('Performance analyzer')],
+    }),
+    createItem('Settings', {
+      disabled: false,
+      items: [
+        createItem('Agent configuration', {
+          url: 'observability/apm-settings',
+        }),
+        createItem('Anomaly detection'),
+        createItem('Customize app'),
+        createItem('Indices'),
+      ],
     }),
   ];
 
@@ -76,16 +97,13 @@ export function ObservabilityNav({ navItem }: Props) {
     <div className="euiSolutionNav">
       <EuiTitle className="euiSolutionNav__title" size="xs">
         <h2>
-          <EuiLink
-            color="text"
-            onClick={() => navigate('/observability/overview')}>
-            <EuiIcon
-              className="euiSolutionNav__titleIcon"
-              size="l"
-              type="logoObservability"
-            />
-            <strong>Observability</strong>
-          </EuiLink>
+          <EuiAvatar
+            color="plain"
+            iconType="logoObservability"
+            name="Observability"
+            className="euiSolutionNav__titleIcon"
+          />
+          <strong>Observability</strong>
         </h2>
       </EuiTitle>
       <EuiSideNav
