@@ -7,6 +7,7 @@ import {
   EuiHeaderSectionItem,
   useIsWithinBreakpoints,
   EuiHeaderProps,
+  EuiToolTip,
 } from '@elastic/eui';
 import { ConsoleHelpMenu } from './help_menu';
 import { navigate } from 'gatsby';
@@ -62,13 +63,15 @@ export const consoleHeaderSections = (
         <ConsoleUpdates />,
         <ConsoleUserMenu {...CloudUser} />,
         <EuiHeaderSectionItem>
-          <EuiButtonIcon
-            aria-label="Add data"
-            iconType="plusInCircleFilled"
-            display="base"
-            size="s"
-            color="ghost"
-          />
+          <EuiToolTip content="Add data">
+            <EuiButtonIcon
+              aria-label="Add data"
+              iconType="plusInCircleFilled"
+              display="base"
+              size="s"
+              color="ghost"
+            />
+          </EuiToolTip>
         </EuiHeaderSectionItem>,
       ],
       borders: 'none',
